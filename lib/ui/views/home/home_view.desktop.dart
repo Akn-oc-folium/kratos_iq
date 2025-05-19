@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kratos_iq/gen/assets.gen.dart';
 import 'package:kratos_iq/ui/common/ui_helpers.dart';
+import 'package:kratos_iq/ui/views/flashcard/flashcard_view.dart';
 import 'package:kratos_iq/ui/views/quiz/quiz_view.dart';
 import 'package:kratos_iq/ui/widgets/flash_card.dart';
 import 'package:kratos_iq/ui/widgets/quiz_card.dart';
@@ -22,7 +23,7 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
         height: 24,
         fit: BoxFit.contain,
       )),
-      body: QuizView(
+      body: const FlashcardView(
         lectureNumber: 1,
       ),
     );

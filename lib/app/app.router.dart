@@ -5,26 +5,27 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i7;
-import 'package:stacked/stacked.dart' as _i6;
-import 'package:stacked_services/stacked_services.dart' as _i5;
+import 'package:flutter/material.dart' as _i8;
+import 'package:stacked/stacked.dart' as _i7;
+import 'package:stacked_services/stacked_services.dart' as _i6;
 
+import '../ui/views/flashcard/flashcard_view.dart' as _i4;
 import '../ui/views/home/home_view.dart' as _i2;
 import '../ui/views/quiz/quiz_view.dart' as _i3;
 import '../ui/views/startup/startup_view.dart' as _i1;
-import '../ui/views/unknown/unknown_view.dart' as _i4;
+import '../ui/views/unknown/unknown_view.dart' as _i5;
 
 final stackedRouter =
-    StackedRouterWeb(navigatorKey: _i5.StackedService.navigatorKey);
+    StackedRouterWeb(navigatorKey: _i6.StackedService.navigatorKey);
 
-class StackedRouterWeb extends _i6.RootStackRouter {
-  StackedRouterWeb({_i7.GlobalKey<_i7.NavigatorState>? navigatorKey})
+class StackedRouterWeb extends _i7.RootStackRouter {
+  StackedRouterWeb({_i8.GlobalKey<_i8.NavigatorState>? navigatorKey})
       : super(navigatorKey);
 
   @override
-  final Map<String, _i6.PageFactory> pagesMap = {
+  final Map<String, _i7.PageFactory> pagesMap = {
     StartupViewRoute.name: (routeData) {
-      return _i6.CustomPage<dynamic>(
+      return _i7.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.StartupView(),
         opaque: true,
@@ -32,7 +33,7 @@ class StackedRouterWeb extends _i6.RootStackRouter {
       );
     },
     HomeViewRoute.name: (routeData) {
-      return _i6.CustomPage<dynamic>(
+      return _i7.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i2.HomeView(),
         opaque: true,
@@ -41,7 +42,7 @@ class StackedRouterWeb extends _i6.RootStackRouter {
     },
     QuizViewRoute.name: (routeData) {
       final args = routeData.argsAs<QuizViewArgs>();
-      return _i6.CustomPage<dynamic>(
+      return _i7.CustomPage<dynamic>(
         routeData: routeData,
         child: _i3.QuizView(
           key: args.key,
@@ -51,10 +52,22 @@ class StackedRouterWeb extends _i6.RootStackRouter {
         barrierDismissible: false,
       );
     },
-    UnknownViewRoute.name: (routeData) {
-      return _i6.CustomPage<dynamic>(
+    FlashcardViewRoute.name: (routeData) {
+      final args = routeData.argsAs<FlashcardViewArgs>();
+      return _i7.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i4.UnknownView(),
+        child: _i4.FlashcardView(
+          key: args.key,
+          lectureNumber: args.lectureNumber,
+        ),
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    UnknownViewRoute.name: (routeData) {
+      return _i7.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i5.UnknownView(),
         opaque: true,
         barrierDismissible: false,
       );
@@ -62,24 +75,28 @@ class StackedRouterWeb extends _i6.RootStackRouter {
   };
 
   @override
-  List<_i6.RouteConfig> get routes => [
-        _i6.RouteConfig(
+  List<_i7.RouteConfig> get routes => [
+        _i7.RouteConfig(
           StartupViewRoute.name,
           path: '/',
         ),
-        _i6.RouteConfig(
+        _i7.RouteConfig(
           HomeViewRoute.name,
           path: '/home-view',
         ),
-        _i6.RouteConfig(
+        _i7.RouteConfig(
           QuizViewRoute.name,
           path: '/quiz-view',
         ),
-        _i6.RouteConfig(
+        _i7.RouteConfig(
+          FlashcardViewRoute.name,
+          path: '/flashcard-view',
+        ),
+        _i7.RouteConfig(
           UnknownViewRoute.name,
           path: '/404',
         ),
-        _i6.RouteConfig(
+        _i7.RouteConfig(
           '*#redirect',
           path: '*',
           redirectTo: '/404',
@@ -90,7 +107,7 @@ class StackedRouterWeb extends _i6.RootStackRouter {
 
 /// generated route for
 /// [_i1.StartupView]
-class StartupViewRoute extends _i6.PageRouteInfo<void> {
+class StartupViewRoute extends _i7.PageRouteInfo<void> {
   const StartupViewRoute()
       : super(
           StartupViewRoute.name,
@@ -102,7 +119,7 @@ class StartupViewRoute extends _i6.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.HomeView]
-class HomeViewRoute extends _i6.PageRouteInfo<void> {
+class HomeViewRoute extends _i7.PageRouteInfo<void> {
   const HomeViewRoute()
       : super(
           HomeViewRoute.name,
@@ -114,9 +131,9 @@ class HomeViewRoute extends _i6.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.QuizView]
-class QuizViewRoute extends _i6.PageRouteInfo<QuizViewArgs> {
+class QuizViewRoute extends _i7.PageRouteInfo<QuizViewArgs> {
   QuizViewRoute({
-    _i7.Key? key,
+    _i8.Key? key,
     required int lectureNumber,
   }) : super(
           QuizViewRoute.name,
@@ -136,7 +153,7 @@ class QuizViewArgs {
     required this.lectureNumber,
   });
 
-  final _i7.Key? key;
+  final _i8.Key? key;
 
   final int lectureNumber;
 
@@ -147,8 +164,42 @@ class QuizViewArgs {
 }
 
 /// generated route for
-/// [_i4.UnknownView]
-class UnknownViewRoute extends _i6.PageRouteInfo<void> {
+/// [_i4.FlashcardView]
+class FlashcardViewRoute extends _i7.PageRouteInfo<FlashcardViewArgs> {
+  FlashcardViewRoute({
+    _i8.Key? key,
+    required int lectureNumber,
+  }) : super(
+          FlashcardViewRoute.name,
+          path: '/flashcard-view',
+          args: FlashcardViewArgs(
+            key: key,
+            lectureNumber: lectureNumber,
+          ),
+        );
+
+  static const String name = 'FlashcardView';
+}
+
+class FlashcardViewArgs {
+  const FlashcardViewArgs({
+    this.key,
+    required this.lectureNumber,
+  });
+
+  final _i8.Key? key;
+
+  final int lectureNumber;
+
+  @override
+  String toString() {
+    return 'FlashcardViewArgs{key: $key, lectureNumber: $lectureNumber}';
+  }
+}
+
+/// generated route for
+/// [_i5.UnknownView]
+class UnknownViewRoute extends _i7.PageRouteInfo<void> {
   const UnknownViewRoute()
       : super(
           UnknownViewRoute.name,
@@ -158,9 +209,9 @@ class UnknownViewRoute extends _i6.PageRouteInfo<void> {
   static const String name = 'UnknownView';
 }
 
-extension RouterStateExtension on _i5.RouterService {
+extension RouterStateExtension on _i6.RouterService {
   Future<dynamic> navigateToStartupView(
-      {void Function(_i6.NavigationFailure)? onFailure}) async {
+      {void Function(_i7.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const StartupViewRoute(),
       onFailure: onFailure,
@@ -168,7 +219,7 @@ extension RouterStateExtension on _i5.RouterService {
   }
 
   Future<dynamic> navigateToHomeView(
-      {void Function(_i6.NavigationFailure)? onFailure}) async {
+      {void Function(_i7.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const HomeViewRoute(),
       onFailure: onFailure,
@@ -176,12 +227,26 @@ extension RouterStateExtension on _i5.RouterService {
   }
 
   Future<dynamic> navigateToQuizView({
-    _i7.Key? key,
+    _i8.Key? key,
     required int lectureNumber,
-    void Function(_i6.NavigationFailure)? onFailure,
+    void Function(_i7.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
       QuizViewRoute(
+        key: key,
+        lectureNumber: lectureNumber,
+      ),
+      onFailure: onFailure,
+    );
+  }
+
+  Future<dynamic> navigateToFlashcardView({
+    _i8.Key? key,
+    required int lectureNumber,
+    void Function(_i7.NavigationFailure)? onFailure,
+  }) async {
+    return navigateTo(
+      FlashcardViewRoute(
         key: key,
         lectureNumber: lectureNumber,
       ),
@@ -190,7 +255,7 @@ extension RouterStateExtension on _i5.RouterService {
   }
 
   Future<dynamic> navigateToUnknownView(
-      {void Function(_i6.NavigationFailure)? onFailure}) async {
+      {void Function(_i7.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const UnknownViewRoute(),
       onFailure: onFailure,
@@ -198,7 +263,7 @@ extension RouterStateExtension on _i5.RouterService {
   }
 
   Future<dynamic> replaceWithStartupView(
-      {void Function(_i6.NavigationFailure)? onFailure}) async {
+      {void Function(_i7.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const StartupViewRoute(),
       onFailure: onFailure,
@@ -206,7 +271,7 @@ extension RouterStateExtension on _i5.RouterService {
   }
 
   Future<dynamic> replaceWithHomeView(
-      {void Function(_i6.NavigationFailure)? onFailure}) async {
+      {void Function(_i7.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const HomeViewRoute(),
       onFailure: onFailure,
@@ -214,9 +279,9 @@ extension RouterStateExtension on _i5.RouterService {
   }
 
   Future<dynamic> replaceWithQuizView({
-    _i7.Key? key,
+    _i8.Key? key,
     required int lectureNumber,
-    void Function(_i6.NavigationFailure)? onFailure,
+    void Function(_i7.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
       QuizViewRoute(
@@ -227,8 +292,22 @@ extension RouterStateExtension on _i5.RouterService {
     );
   }
 
+  Future<dynamic> replaceWithFlashcardView({
+    _i8.Key? key,
+    required int lectureNumber,
+    void Function(_i7.NavigationFailure)? onFailure,
+  }) async {
+    return replaceWith(
+      FlashcardViewRoute(
+        key: key,
+        lectureNumber: lectureNumber,
+      ),
+      onFailure: onFailure,
+    );
+  }
+
   Future<dynamic> replaceWithUnknownView(
-      {void Function(_i6.NavigationFailure)? onFailure}) async {
+      {void Function(_i7.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const UnknownViewRoute(),
       onFailure: onFailure,

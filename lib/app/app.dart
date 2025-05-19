@@ -6,6 +6,7 @@ import 'package:kratos_iq/ui/views/unknown/unknown_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:kratos_iq/ui/views/quiz/quiz_view.dart';
+import 'package:kratos_iq/ui/views/flashcard/flashcard_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -14,6 +15,7 @@ import 'package:kratos_iq/ui/views/quiz/quiz_view.dart';
     CustomRoute(page: HomeView),
 
     CustomRoute(page: QuizView),
+    CustomRoute(page: FlashcardView),
 // @stacked-route
     CustomRoute(page: UnknownView, path: '/404'),
 

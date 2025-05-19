@@ -21,3 +21,5 @@ const Color kcRedError = Color(0xFFFEE2E2);
 const Color kcBlue = Color(0xFF38BDF8);
 const Color kcRedError1 = Color(0xFFFCA5A5);
 const Color kcGreenCorrect = Color(0xFF22C55E);
+const Color kcSkyBlue = Color(0xFF38BDF8);
+const Color kcSkyLightBlue = Color(0xFFE0F2FE);
