@@ -18,5 +18,6 @@ const Color kcLimeC16 = Color(0xFF84CC16);
 const Color kcZinc = Color(0xFF18181B);
 const Color kcGrey = Color(0xFFF9FAFB);
 const Color kcRedError = Color(0xFFFEE2E2);
-const Color kcSlate = Color(0xFFE2E8F0);
 const Color kcBlue = Color(0xFF38BDF8);
+const Color kcRedError1 = Color(0xFFFCA5A5);
+const Color kcGreenCorrect = Color(0xFF22C55E);

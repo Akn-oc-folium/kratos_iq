@@ -55,18 +55,32 @@ class QuizViewDesktop extends StatelessWidget {
                       const SizedBox(
                         height: 39,
                       ),
-                      LinearProgressIndicator(
-                        value: viewModel.progress,
-                        backgroundColor: kcVeryLightGrey,
-                        color: kcLimeC16,
+                      SizedBox(
+                        height: 28,
+                        width: 907,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 6.0),
+                          child: LinearProgressIndicator(
+                            value: viewModel.progress,
+                            backgroundColor: kcVeryLightGrey,
+                            color: kcLimeC16,
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                        ),
+                      ),
+                      vertical08,
+                      vertical04,
+                      const Divider(
+                        color: kcZinc,
                       ),
                       vertical16,
+                      vertical04,
                       if (viewModel.isLoading)
                         const SizedBox()
                       else
                         QuizCard(
                           questionNumber:
-                              "Question ${viewModel.currentQuestionIndex + 1}",
+                              "Question ${viewModel.currentQuestionIndex + 1}/${viewModel.questions.length}",
                           question: viewModel.currentQuestion?.question ?? '',
                           options: viewModel.currentQuestion?.options ?? [],
                           correctIndex:
@@ -74,13 +88,15 @@ class QuizViewDesktop extends StatelessWidget {
                           questionIndex: viewModel.currentQuestionIndex,
                         ),
                       vertical16,
+                      vertical04,
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           ElevatedButton(
                             onPressed: viewModel.previousQuestion,
                             child: const Text("Previous"),
                           ),
+                          horizontal16,
+                          horizontal08,
                           ElevatedButton(
                             onPressed: viewModel.nextQuestion,
                             child: const Text("Next"),

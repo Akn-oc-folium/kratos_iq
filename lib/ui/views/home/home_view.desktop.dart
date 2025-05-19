@@ -14,13 +14,21 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
 
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+          leading: Image.asset(
+        Assets.images.logo.path,
+        width: 102,
+        height: 24,
+        fit: BoxFit.contain,
+      )),
+      body: QuizView(
+        lectureNumber: 1,
+      ),
+    );
   }
 }
 
-// QuizView(
-//         lectureNumber: 1,
-//       ),
 // const LectureCard(
 //   lectureNumber: 'Lecture 1',
 //   date: 'Apr 10',
