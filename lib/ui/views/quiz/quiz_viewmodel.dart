@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:kratos_iq/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class QuizViewModel extends BaseViewModel {
+  final _routerService = locator<RouterService>();
+
   final int lectureNumber;
   int currentQuestionIndex = 0;
   List<Question> questions = [];
@@ -54,7 +58,9 @@ class QuizViewModel extends BaseViewModel {
     return selectedOptions[questionIndex];
   }
 
-  void goBack() {}
+  void goBack() {
+    _routerService.back();
+  }
 
   void goToQuestion(int index) {
     if (index >= 0 && index < questions.length) {

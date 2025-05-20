@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kratos_iq/gen/assets.gen.dart';
-import 'package:kratos_iq/ui/common/ui_helpers.dart';
-import 'package:kratos_iq/ui/views/flashcard/flashcard_view.dart';
-import 'package:kratos_iq/ui/views/quiz/quiz_view.dart';
-import 'package:kratos_iq/ui/widgets/flash_card.dart';
-import 'package:kratos_iq/ui/widgets/quiz_card.dart';
-import 'package:kratos_iq/ui/widgets/quiz_deck.dart';
+import 'package:kratos_iq/ui/views/main_layout/main_layout_view.dart';
+import 'package:kratos_iq/ui/views/student_home/student_home_view.dart';
 import 'package:stacked/stacked.dart';
 
 import 'home_viewmodel.dart';
@@ -15,18 +10,7 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
 
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
-    return Scaffold(
-      appBar: AppBar(
-          leading: Image.asset(
-        Assets.images.logo.path,
-        width: 102,
-        height: 24,
-        fit: BoxFit.contain,
-      )),
-      body: const FlashcardView(
-        lectureNumber: 1,
-      ),
-    );
+    return const MainLayoutView(body: StudentHomeView());
   }
 }
 

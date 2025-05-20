@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:kratos_iq/app/app.locator.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class FlashcardViewModel extends BaseViewModel {
+  final _routerService = locator<RouterService>();
+
   final int lectureNumber;
   int currentCardIndex = 0;
   List<Flashcard> flashcards = [];
@@ -40,6 +44,10 @@ class FlashcardViewModel extends BaseViewModel {
   void toggleFlashcard() {
     isFlipped = !isFlipped;
     notifyListeners();
+  }
+
+  void goBack() {
+    _routerService.back();
   }
 
   void goToCard(int index) {
