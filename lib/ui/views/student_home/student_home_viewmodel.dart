@@ -10,17 +10,38 @@ class StudentHomeViewModel extends BaseViewModel {
 
   List<Map<String, dynamic>> lectures = [
     {
-      'lectureNumber': 'Lecture 1',
+      'lectureNumber': 1,
+      'lecture': 'Lecture 1',
       'date': 'Apr 10',
       'color': kcDarkGreenColor,
     },
     {
-      'lectureNumber': 'Lecture 2',
+      'lectureNumber': 2,
+      'lecture': 'Lecture 2',
       'date': 'Apr 8',
       'color': kcGreenColor,
     },
     {
-      'lectureNumber': 'Lecture 3',
+      'lectureNumber': 3,
+      'lecture': 'Lecture 3',
+      'date': 'Apr 2',
+      'color': kcLime264,
+    },
+    {
+      'lectureNumber': 1,
+      'lecture': 'Lecture 1',
+      'date': 'Apr 10',
+      'color': kcDarkGreenColor,
+    },
+    {
+      'lectureNumber': 2,
+      'lecture': 'Lecture 2',
+      'date': 'Apr 8',
+      'color': kcGreenColor,
+    },
+    {
+      'lectureNumber': 3,
+      'lecture': 'Lecture 3',
       'date': 'Apr 2',
       'color': kcLime264,
     },
@@ -70,6 +91,10 @@ class StudentHomeViewModel extends BaseViewModel {
       'content': 'Dot Product, Basis Vectors, Subspace',
     },
   ];
+
+  navigateToLecturePage(int lectureNumber) {
+    _routerService.navigateToStudentDashboardView(lectureNumber: lectureNumber);
+  }
 
   navigateToQuiz(int lectureNumber) {
     _routerService.navigateToQuizView(lectureNumber: lectureNumber);

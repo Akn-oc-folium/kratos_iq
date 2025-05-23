@@ -9,6 +9,7 @@ import 'package:kratos_iq/ui/views/quiz/quiz_view.dart';
 import 'package:kratos_iq/ui/views/flashcard/flashcard_view.dart';
 import 'package:kratos_iq/ui/views/student_home/student_home_view.dart';
 import 'package:kratos_iq/ui/views/main_layout/main_layout_view.dart';
+import 'package:kratos_iq/ui/views/student_dashboard/student_dashboard_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -20,6 +21,7 @@ import 'package:kratos_iq/ui/views/main_layout/main_layout_view.dart';
     CustomRoute(page: FlashcardView),
     CustomRoute(page: StudentHomeView),
     CustomRoute(page: MainLayoutView),
+    CustomRoute(page: StudentDashboardView),
 // @stacked-route
     CustomRoute(page: UnknownView, path: '/404'),
 

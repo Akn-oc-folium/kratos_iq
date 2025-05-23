@@ -154,7 +154,7 @@ class QuizViewDesktop extends StatelessWidget {
                                                         ? kcRedError
                                                         : Colors.grey,
                                               ),
-                                              const SizedBox(width: 8),
+                                              horizontal08,
                                               Text("Question ${index + 1}"),
                                             ],
                                           ),

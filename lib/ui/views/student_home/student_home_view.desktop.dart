@@ -42,44 +42,48 @@ class StudentHomeViewDesktop extends ViewModelWidget<StudentHomeViewModel> {
                         ),
                       ),
                     ),
-                    Row(
-                      children: [
-                        ...viewModel.lectures.asMap().entries.map(
-                              (entry) => Padding(
-                                padding: const EdgeInsets.only(right: 16.0),
-                                child: Stack(
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    LectureCard(
-                                      cardColor: entry.value['color'],
-                                      lectureNumber:
-                                          entry.value['lectureNumber'],
-                                      date: entry.value['date'],
-                                    ),
-                                    if (entry.key ==
-                                        viewModel.lectures.length - 1)
-                                      Positioned(
-                                        top: 39,
-                                        left: 273,
-                                        child: Container(
-                                          height: 24,
-                                          width: 24,
-                                          decoration: const BoxDecoration(
-                                            color: kcLime264,
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: const Icon(
-                                            Icons.chevron_right,
-                                            size: 16,
-                                            color: kcBlack,
-                                          ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            ...viewModel.lectures.asMap().entries.map(
+                                  (entry) => Padding(
+                                    padding: const EdgeInsets.only(right: 16.0),
+                                    child: Stack(
+                                      clipBehavior: Clip.none,
+                                      children: [
+                                        LectureCard(
+                                          cardColor: entry.value['color'],
+                                          lectureNumber: entry.value['lecture'],
+                                          date: entry.value['date'],
                                         ),
-                                      ),
-                                  ],
+                                        if (entry.key ==
+                                            viewModel.lectures.length - 1)
+                                          Positioned(
+                                            top: 39,
+                                            left: 273,
+                                            child: Container(
+                                              height: 24,
+                                              width: 24,
+                                              decoration: const BoxDecoration(
+                                                color: kcLime264,
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: const Icon(
+                                                Icons.chevron_right,
+                                                size: 16,
+                                                color: kcBlack,
+                                              ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                      ],
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -96,99 +100,117 @@ class StudentHomeViewDesktop extends ViewModelWidget<StudentHomeViewModel> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Lectures from April, 14',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w700),
-                        ),
-                        vertical08,
-                        Row(
-                          children: [
-                            ...viewModel.lectures.asMap().entries.map(
-                                  (entry) => Padding(
-                                    padding: const EdgeInsets.only(right: 16.0),
-                                    child: Row(
-                                      children: [
-                                        LectureCard(
-                                          cardColor: entry.value['color'],
-                                          lectureNumber:
-                                              entry.value['lectureNumber'],
-                                          date: entry.value['date'],
+                    SizedBox(
+                      width: 888,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Lectures from April, 14',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w700),
+                          ),
+                          vertical08,
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                ...viewModel.lectures
+                                    .map(
+                                      (entry) => Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 16.0),
+                                        child: Row(
+                                          children: [
+                                            LectureCard(
+                                              onTap: () => viewModel
+                                                  .navigateToLecturePage(
+                                                      entry['lectureNumber']),
+                                              cardColor: entry['color'],
+                                              lectureNumber: entry['lecture'],
+                                              date: entry['date'],
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                          ],
-                        ),
-                        vertical16,
-                        vertical08,
-                        const Text(
-                          'Quizzes',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w700),
-                        ),
-                        vertical08,
-                        Row(
-                          children: [
-                            ...viewModel.quizzes
-                                .map((entry) => Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 16.0),
-                                      child: QuizDeck(
-                                        onTap: () => viewModel.navigateToQuiz(
-                                            entry['lectureNumber']),
-                                        title: entry['title'] ?? 'No Title',
-                                        subTitle:
-                                            entry['subTitle'] ?? 'No SubTitle',
                                       ),
-                                    ))
-                                .toList(),
-                          ],
-                        ),
-                        vertical16,
-                        vertical08,
-                        const Text(
-                          'Flashcards Sets',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w700),
-                        ),
-                        vertical08,
-                        Row(
-                          children: [
-                            ...viewModel.flashcards
-                                .map((entry) => Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 16.0),
-                                      child: FlashDeck(
-                                        onTap: () =>
-                                            viewModel.navigateToFlashCard(
-                                                entry['lectureNumber']),
-                                        assetImage:
-                                            AssetImage(entry['assetImage']),
-                                        label: entry['label'],
-                                        content: entry['content'],
-                                      ),
-                                    ))
-                                .toList(),
-                          ],
-                        ),
-                      ],
+                                    )
+                                    .toList(),
+                              ],
+                            ),
+                          ),
+                          vertical16,
+                          vertical08,
+                          const Text(
+                            'Quizzes',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w700),
+                          ),
+                          vertical08,
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                ...viewModel.quizzes
+                                    .map((entry) => Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 16.0),
+                                          child: QuizDeck(
+                                            onTap: () =>
+                                                viewModel.navigateToQuiz(
+                                                    entry['lectureNumber']),
+                                            title: entry['title'] ?? 'No Title',
+                                            subTitle: entry['subTitle'] ??
+                                                'No SubTitle',
+                                          ),
+                                        ))
+                                    .toList(),
+                              ],
+                            ),
+                          ),
+                          vertical16,
+                          vertical08,
+                          const Text(
+                            'Flashcards Sets',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w700),
+                          ),
+                          vertical08,
+                          Row(
+                            children: [
+                              ...viewModel.flashcards
+                                  .map((entry) => Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 16.0),
+                                        child: FlashDeck(
+                                          onTap: () =>
+                                              viewModel.navigateToFlashCard(
+                                                  entry['lectureNumber']),
+                                          assetImage:
+                                              AssetImage(entry['assetImage']),
+                                          label: entry['label'],
+                                          content: entry['content'],
+                                        ),
+                                      ))
+                                  .toList(),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(
                       width: 37,
                     ),
-                    Column(
-                      children: [
-                        const Text(
-                          'Assignments or Tasks',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w700),
-                        )
-                      ],
+                    const Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Assignments or Tasks',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w700),
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),

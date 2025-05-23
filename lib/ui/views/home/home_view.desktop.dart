@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kratos_iq/ui/views/main_layout/main_layout_view.dart';
+import 'package:kratos_iq/ui/views/student_dashboard/student_dashboard_view.dart';
 import 'package:kratos_iq/ui/views/student_home/student_home_view.dart';
 import 'package:stacked/stacked.dart';
 
@@ -10,7 +11,10 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
 
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
-    return const MainLayoutView(body: StudentHomeView());
+    return const MainLayoutView(
+        body: StudentDashboardView(
+      lectureNumber: 1,
+    ));
   }
 }
 

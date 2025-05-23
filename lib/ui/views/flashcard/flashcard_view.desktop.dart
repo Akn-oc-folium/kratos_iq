@@ -27,19 +27,19 @@ class FlashcardViewDesktop extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.arrow_back, size: 16),
-                            const SizedBox(width: 8),
-                            GestureDetector(
-                              onTap: () => viewModel.goBack(),
-                              child: const Text(
+                        GestureDetector(
+                          onTap: viewModel.goBack,
+                          child: const Row(
+                            children: [
+                              Icon(Icons.arrow_back, size: 16),
+                              horizontal08,
+                              Text(
                                 'Back',
                                 style: TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.w500),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         vertical32,
                         Text(
@@ -102,7 +102,7 @@ class FlashcardViewDesktop extends StatelessWidget {
                                   fontSize: 14, fontWeight: FontWeight.w500),
                             ),
                           ),
-                          const SizedBox(width: 16),
+                          horizontal16,
                           ElevatedButton(
                             onPressed: viewModel.nextCard,
                             child: const Text(
