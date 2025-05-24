@@ -1,4 +1,3 @@
-import 'package:just_audio/just_audio.dart';
 import 'package:kratos_iq/app/app.locator.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:stacked/stacked.dart';
