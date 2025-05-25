@@ -1,27 +1,33 @@
+import 'package:kratos_iq/app/app.locator.dart';
+import 'package:kratos_iq/app/app.router.dart';
+import 'package:kratos_iq/gen/assets.gen.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class TeacherHomeViewModel extends BaseViewModel {
+  final RouterService _routerService = locator<RouterService>();
+
   List<Map<String, dynamic>> teacherMetric = [
     {
       'title': '4.6 / 5',
       'subTitle': 'Lecture Clarity Score',
-      'color': kcDarkGreenColor,
+      'assetImage': Assets.images.designFundamentals.path,
     },
     {
       'title': '92%',
       'subTitle': 'Subject Coverage',
-      'color': kcDarkGreenColor,
+      'assetImage': Assets.images.aiEthics.path,
     },
     {
       'title': '78%',
       'subTitle': 'Student Retention',
-      'color': kcDarkGreenColor,
+      'assetImage': Assets.images.setTheory.path,
     },
     {
       'title': 'High',
       'subTitle': 'Engagement Index',
-      'color': kcDarkGreenColor,
+      'assetImage': Assets.images.vectorSpaces.path,
     },
   ];
 
@@ -63,4 +69,8 @@ class TeacherHomeViewModel extends BaseViewModel {
       'color': kcLime264,
     },
   ];
+
+  navigateToLecturePage(int lectureNumber) {
+    _routerService.navigateToTeacherLectureView(lectureNumber: lectureNumber);
+  }
 }

@@ -3,19 +3,19 @@ import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:kratos_iq/ui/common/ui_helpers.dart';
 import 'package:kratos_iq/ui/views/main_layout/main_layout_view.dart';
 import 'package:kratos_iq/ui/widgets/audio_player.dart';
-import 'package:kratos_iq/ui/widgets/lecture_card.dart';
+import 'package:kratos_iq/ui/widgets/metric_card.dart';
 import 'package:stacked/stacked.dart';
 
-import 'student_dashboard_viewmodel.dart';
+import 'teacher_lecture_viewmodel.dart';
 
-class StudentDashboardViewDesktop extends StatelessWidget {
+class TeacherLectureViewDesktop extends StatelessWidget {
   final int lectureNumber;
-  const StudentDashboardViewDesktop({super.key, required this.lectureNumber});
+  const TeacherLectureViewDesktop({super.key, required this.lectureNumber});
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<StudentDashboardViewModel>.reactive(
-        viewModelBuilder: () => StudentDashboardViewModel(lectureNumber),
+    return ViewModelBuilder<TeacherLectureViewModel>.reactive(
+        viewModelBuilder: () => TeacherLectureViewModel(lectureNumber),
         builder: (context, viewModel, child) => MainLayoutView(
                 body: SingleChildScrollView(
               child: Column(
@@ -92,7 +92,7 @@ class StudentDashboardViewDesktop extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text(
-                                  'Supplementary Resources',
+                                  'Lecture Impact',
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
@@ -103,47 +103,24 @@ class StudentDashboardViewDesktop extends StatelessWidget {
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
                                     children: [
-                                      ...viewModel.lectures.asMap().entries.map(
+                                      ...viewModel.teacherMetric
+                                          .map(
                                             (entry) => Padding(
                                               padding: const EdgeInsets.only(
                                                   right: 16.0),
-                                              child: Stack(
-                                                clipBehavior: Clip.none,
+                                              child: Row(
                                                 children: [
-                                                  LectureCard(
-                                                    cardColor:
-                                                        entry.value['color'],
-                                                    lectureNumber:
-                                                        entry.value['lecture'],
-                                                    date: entry.value['date'],
+                                                  MetricCard(
+                                                    backgroundImage: AssetImage(
+                                                        entry['assetImage']),
+                                                    title: entry['title'],
+                                                    subTitle: entry['subTitle'],
                                                   ),
-                                                  if (entry.key ==
-                                                      viewModel
-                                                              .lectures.length -
-                                                          1)
-                                                    Positioned(
-                                                      top: 39,
-                                                      left: 273,
-                                                      child: Container(
-                                                        height: 24,
-                                                        width: 24,
-                                                        decoration:
-                                                            const BoxDecoration(
-                                                          color: kcLime264,
-                                                          shape:
-                                                              BoxShape.circle,
-                                                        ),
-                                                        child: const Icon(
-                                                          Icons.chevron_right,
-                                                          size: 16,
-                                                          color: kcBlack,
-                                                        ),
-                                                      ),
-                                                    ),
                                                 ],
                                               ),
                                             ),
-                                          ),
+                                          )
+                                          .toList(),
                                     ],
                                   ),
                                 ),

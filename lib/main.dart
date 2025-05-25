@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kratos_iq/ui/widgets/mouse_scroll.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:kratos_iq/app/app.bottomsheets.dart';
 import 'package:kratos_iq/app/app.dialogs.dart';
@@ -23,6 +24,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveApp(
       builder: (_) => MaterialApp.router(
+        scrollBehavior: MouseFriendlyScrollBehavior(),
         routerDelegate: stackedRouter.delegate(),
         routeInformationParser: stackedRouter.defaultRouteParser(),
       ),

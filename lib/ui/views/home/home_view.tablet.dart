@@ -30,14 +30,6 @@ class HomeViewTablet extends ViewModelWidget<HomeViewModel> {
                       ),
                     ),
                     verticalSpaceMedium,
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
                   ],
                 ),
                 Row(
@@ -45,7 +37,7 @@ class HomeViewTablet extends ViewModelWidget<HomeViewModel> {
                   children: [
                     MaterialButton(
                       color: kcDarkGreyColor,
-                      onPressed: viewModel.showDialog,
+                      onPressed: null,
                       child: const Text(
                         'Show Dialog',
                         style: TextStyle(color: Colors.white),
@@ -53,7 +45,7 @@ class HomeViewTablet extends ViewModelWidget<HomeViewModel> {
                     ),
                     MaterialButton(
                       color: kcDarkGreyColor,
-                      onPressed: viewModel.showBottomSheet,
+                      onPressed: null,
                       child: const Text(
                         'Show Bottom Sheet',
                         style: TextStyle(color: Colors.white),

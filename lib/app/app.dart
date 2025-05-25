@@ -11,6 +11,8 @@ import 'package:kratos_iq/ui/views/flashcard/flashcard_view.dart';
 import 'package:kratos_iq/ui/views/student_home/student_home_view.dart';
 import 'package:kratos_iq/ui/views/main_layout/main_layout_view.dart';
 import 'package:kratos_iq/ui/views/student_dashboard/student_dashboard_view.dart';
+import 'package:kratos_iq/services/role_service.dart';
+import 'package:kratos_iq/ui/views/teacher_lecture/teacher_lecture_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -24,6 +26,7 @@ import 'package:kratos_iq/ui/views/student_dashboard/student_dashboard_view.dart
     CustomRoute(page: MainLayoutView),
     CustomRoute(page: StudentDashboardView),
     CustomRoute(page: TeacherHomeView),
+    CustomRoute(page: TeacherLectureView),
 // @stacked-route
     CustomRoute(page: UnknownView, path: '/404'),
 
@@ -34,6 +37,7 @@ import 'package:kratos_iq/ui/views/student_dashboard/student_dashboard_view.dart
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: RouterService),
+    LazySingleton(classType: RoleService),
 // @stacked-service
   ],
   bottomsheets: [

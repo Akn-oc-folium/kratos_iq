@@ -1,36 +1,24 @@
-import 'package:kratos_iq/app/app.bottomsheets.dart';
-import 'package:kratos_iq/app/app.dialogs.dart';
 import 'package:kratos_iq/app/app.locator.dart';
-import 'package:kratos_iq/ui/common/app_strings.dart';
+import 'package:kratos_iq/services/role_service.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 class HomeViewModel extends BaseViewModel {
-  final _dialogService = locator<DialogService>();
-  final _bottomSheetService = locator<BottomSheetService>();
+  final _roleService = locator<RoleService>();
 
-  String get counterLabel => 'Counter is: $_counter';
-
-  int _counter = 0;
-
-  void incrementCounter() {
-    _counter++;
-    rebuildUi();
+  HomeViewModel() {
+    _roleService.addListener(notifyListeners);
   }
 
-  void showDialog() {
-    _dialogService.showCustomDialog(
-      variant: DialogType.infoAlert,
-      title: 'Stacked Rocks!',
-      description: 'Give stacked $_counter stars on Github',
-    );
+  bool get isStudent => _roleService.isStudent;
+
+  void toggleRole() {
+    _roleService.toggleRole();
+    notifyListeners();
   }
 
-  void showBottomSheet() {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.notice,
-      title: ksHomeBottomSheetTitle,
-      description: ksHomeBottomSheetDescription,
-    );
+  @override
+  void dispose() {
+    _roleService.removeListener(notifyListeners);
+    super.dispose();
   }
 }

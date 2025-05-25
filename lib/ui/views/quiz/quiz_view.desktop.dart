@@ -32,9 +32,19 @@ class QuizViewDesktop extends StatelessWidget {
                                 onTap: viewModel.goBack,
                                 child: const Row(
                                   children: [
-                                    Icon(Icons.arrow_back, size: 16),
+                                    Icon(
+                                      Icons.arrow_back,
+                                      size: 16,
+                                      color: kcLime30D,
+                                    ),
                                     horizontal08,
-                                    Text('Back'),
+                                    Text(
+                                      'Back',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          color: kcLime30D),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -80,6 +90,8 @@ class QuizViewDesktop extends StatelessWidget {
                               vertical04,
                               if (viewModel.isLoading)
                                 const SizedBox()
+                              else if (viewModel.isFinished)
+                                _buildResultScreen(viewModel)
                               else
                                 QuizCard(
                                   questionNumber:
@@ -96,16 +108,38 @@ class QuizViewDesktop extends StatelessWidget {
                               vertical16,
                               vertical04,
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   ElevatedButton(
                                     onPressed: viewModel.previousQuestion,
-                                    child: const Text("Previous"),
+                                    child: const Text(
+                                      "Previous",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                   ),
                                   horizontal16,
                                   horizontal08,
                                   ElevatedButton(
                                     onPressed: viewModel.nextQuestion,
-                                    child: const Text("Next"),
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(kcLime264),
+                                    ),
+                                    child: viewModel.isFinished
+                                        ? const Text(
+                                            "Next Quiz",
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600),
+                                          )
+                                        : const Text(
+                                            "Next",
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600),
+                                          ),
                                   ),
                                 ],
                               ),
@@ -171,4 +205,44 @@ class QuizViewDesktop extends StatelessWidget {
               ),
             ));
   }
+}
+
+Widget _buildResultScreen(QuizViewModel viewModel) {
+  return Container(
+    width: 907,
+    height: 420,
+    padding: const EdgeInsets.all(32),
+    decoration: BoxDecoration(
+      color: kcGrey,
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Icon(Icons.celebration, size: 48, color: Colors.deepPurple),
+        vertical16,
+        Text(
+          viewModel.resultText,
+          style: const TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              color: Colors.deepPurple),
+        ),
+        const Text(
+          'Points',
+          style: TextStyle(fontSize: 16, color: Colors.black54),
+        ),
+        vertical16,
+        const Text(
+          'You did awesome!',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        Text(
+          "${viewModel.retention.toStringAsFixed(0)}% retained from lecture content",
+          style: const TextStyle(fontSize: 14, color: Colors.grey),
+        ),
+        vertical32,
+      ],
+    ),
+  );
 }

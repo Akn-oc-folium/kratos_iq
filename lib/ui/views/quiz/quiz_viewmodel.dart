@@ -54,6 +54,16 @@ class QuizViewModel extends BaseViewModel {
 
   int get totalQuestions => questions.length;
 
+  int get correctAnswers => selectedOptions.entries
+      .where((entry) =>
+          entry.value != null &&
+          entry.value == questions[entry.key].correctIndex)
+      .length;
+
+  String get resultText => "$correctAnswers/${questions.length}";
+
+  double get retention => (correctAnswers / questions.length) * 100;
+
   int? getSelectedOption(int questionIndex) {
     return selectedOptions[questionIndex];
   }
@@ -76,9 +86,14 @@ class QuizViewModel extends BaseViewModel {
     }
   }
 
+  bool isFinished = false;
+
   void nextQuestion() {
     if (currentQuestionIndex < questions.length - 1) {
       goToQuestion(currentQuestionIndex + 1);
+    } else {
+      isFinished = true;
+      notifyListeners();
     }
   }
 

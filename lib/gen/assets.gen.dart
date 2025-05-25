@@ -27,13 +27,17 @@ class $AssetsImagesGen {
   AssetGenImage get setTheory =>
       const AssetGenImage('assets/images/set_theory.png');
 
+  /// File path: assets/images/timetable.png
+  AssetGenImage get timetable =>
+      const AssetGenImage('assets/images/timetable.png');
+
   /// File path: assets/images/vector_spaces.png
   AssetGenImage get vectorSpaces =>
       const AssetGenImage('assets/images/vector_spaces.png');
 
   /// List of all assets
   List<AssetGenImage> get values =>
-      [aiEthics, designFundamentals, logo, setTheory, vectorSpaces];
+      [aiEthics, designFundamentals, logo, setTheory, timetable, vectorSpaces];
 }
 
 class Assets {

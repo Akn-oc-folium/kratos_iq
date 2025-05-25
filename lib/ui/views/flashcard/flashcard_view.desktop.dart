@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:kratos_iq/ui/views/main_layout/main_layout_view.dart';
 import 'package:stacked/stacked.dart';
 import 'flashcard_viewmodel.dart';
@@ -31,12 +32,18 @@ class FlashcardViewDesktop extends StatelessWidget {
                           onTap: viewModel.goBack,
                           child: const Row(
                             children: [
-                              Icon(Icons.arrow_back, size: 16),
+                              Icon(
+                                Icons.arrow_back,
+                                size: 16,
+                                color: kcLime30D,
+                              ),
                               horizontal08,
                               Text(
                                 'Back',
                                 style: TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w500),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: kcLime30D),
                               ),
                             ],
                           ),
