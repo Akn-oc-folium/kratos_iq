@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:kratos_iq/app/app.locator.dart';
 import 'package:kratos_iq/services/role_service.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 class RoleToggle extends StatefulWidget {
   const RoleToggle({super.key});
@@ -13,28 +13,43 @@ class _RoleToggleState extends State<RoleToggle> {
   final RoleService _roleService = locator<RoleService>();
 
   @override
-  Widget build(BuildContext context) {
-    bool isStudent = _roleService.isStudent;
+  void initState() {
+    super.initState();
+    _roleService.addListener(_onRoleChanged);
+  }
 
-    return ToggleButtons(
-      borderRadius: BorderRadius.circular(8),
-      isSelected: [isStudent, !isStudent],
-      onPressed: (index) {
-        setState(() {
-          _roleService.toggleRole();
-          print("current role: ${_roleService.isStudent}");
-        });
-      },
-      children: const [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12),
-          child: Text('Student'),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12),
-          child: Text('Teacher'),
-        ),
+  void _onRoleChanged() => setState(() {});
+
+  @override
+  void dispose() {
+    _roleService.removeListener(_onRoleChanged);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final bool isStudent = _roleService.isStudent;
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Toggle(
+          value: isStudent,
+          style: const ButtonStyle.outline(density: ButtonDensity.compact),
+          onChanged: (v) {
+            if (!isStudent) _roleService.toggleRole();
+          },
+          child: const Text('Student').bold().center(),
+        ).sized(width: 80, height: 32),
+        Toggle(
+          value: !isStudent,
+          style: const ButtonStyle.outline(density: ButtonDensity.compact),
+          onChanged: (v) {
+            if (isStudent) _roleService.toggleRole();
+          },
+          child: const Text('Teacher').bold().center(),
+        ).sized(width: 80, height: 32),
       ],
-    );
+    ).gap(4);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:kratos_iq/ui/common/ui_helpers.dart';
+import 'package:kratos_iq/ui/views/main_layout/main_layout_view.dart';
 import 'package:kratos_iq/ui/widgets/flash_deck.dart';
 import 'package:kratos_iq/ui/widgets/lecture_card.dart';
 import 'package:kratos_iq/ui/widgets/quiz_deck.dart';
@@ -15,8 +16,7 @@ class StudentHomeViewDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<StudentHomeViewModel>.reactive(
         viewModelBuilder: () => StudentHomeViewModel(),
-        builder: (context, viewModel, child) => Scaffold(
-              backgroundColor: kcGrey,
+        builder: (context, viewModel, child) => MainLayoutView(
               body: SingleChildScrollView(
                 child: Column(
                   children: [

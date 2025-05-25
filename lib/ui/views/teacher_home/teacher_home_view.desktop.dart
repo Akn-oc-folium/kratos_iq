@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kratos_iq/gen/assets.gen.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:kratos_iq/ui/common/ui_helpers.dart';
+import 'package:kratos_iq/ui/views/main_layout/main_layout_view.dart';
 import 'package:kratos_iq/ui/widgets/lecture_card.dart';
 import 'package:kratos_iq/ui/widgets/metric_card.dart';
 import 'package:stacked/stacked.dart';
@@ -15,8 +16,7 @@ class TeacherHomeViewDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<TeacherHomeViewModel>.reactive(
       viewModelBuilder: () => TeacherHomeViewModel(),
-      builder: (context, viewModel, child) => Scaffold(
-        backgroundColor: kcGrey,
+      builder: (context, viewModel, child) => MainLayoutView(
         body: SingleChildScrollView(
           child: Column(
             children: [
