@@ -5,9 +5,9 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i13;
-import 'package:stacked/stacked.dart' as _i12;
-import 'package:stacked_services/stacked_services.dart' as _i11;
+import 'package:flutter/material.dart' as _i14;
+import 'package:stacked/stacked.dart' as _i13;
+import 'package:stacked_services/stacked_services.dart' as _i12;
 
 import '../ui/views/flashcard/flashcard_view.dart' as _i4;
 import '../ui/views/home/home_view.dart' as _i2;
@@ -18,19 +18,20 @@ import '../ui/views/student_dashboard/student_dashboard_view.dart' as _i7;
 import '../ui/views/student_home/student_home_view.dart' as _i5;
 import '../ui/views/teacher_home/teacher_home_view.dart' as _i8;
 import '../ui/views/teacher_lecture/teacher_lecture_view.dart' as _i9;
-import '../ui/views/unknown/unknown_view.dart' as _i10;
+import '../ui/views/unknown/unknown_view.dart' as _i11;
+import '../ui/views/video_feed/video_feed_view.dart' as _i10;
 
 final stackedRouter =
-    StackedRouterWeb(navigatorKey: _i11.StackedService.navigatorKey);
+    StackedRouterWeb(navigatorKey: _i12.StackedService.navigatorKey);
 
-class StackedRouterWeb extends _i12.RootStackRouter {
-  StackedRouterWeb({_i13.GlobalKey<_i13.NavigatorState>? navigatorKey})
+class StackedRouterWeb extends _i13.RootStackRouter {
+  StackedRouterWeb({_i14.GlobalKey<_i14.NavigatorState>? navigatorKey})
       : super(navigatorKey);
 
   @override
-  final Map<String, _i12.PageFactory> pagesMap = {
+  final Map<String, _i13.PageFactory> pagesMap = {
     StartupViewRoute.name: (routeData) {
-      return _i12.CustomPage<dynamic>(
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.StartupView(),
         opaque: true,
@@ -38,7 +39,7 @@ class StackedRouterWeb extends _i12.RootStackRouter {
       );
     },
     HomeViewRoute.name: (routeData) {
-      return _i12.CustomPage<dynamic>(
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i2.HomeView(),
         opaque: true,
@@ -47,7 +48,7 @@ class StackedRouterWeb extends _i12.RootStackRouter {
     },
     QuizViewRoute.name: (routeData) {
       final args = routeData.argsAs<QuizViewArgs>();
-      return _i12.CustomPage<dynamic>(
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
         child: _i3.QuizView(
           key: args.key,
@@ -59,7 +60,7 @@ class StackedRouterWeb extends _i12.RootStackRouter {
     },
     FlashcardViewRoute.name: (routeData) {
       final args = routeData.argsAs<FlashcardViewArgs>();
-      return _i12.CustomPage<dynamic>(
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
         child: _i4.FlashcardView(
           key: args.key,
@@ -70,7 +71,7 @@ class StackedRouterWeb extends _i12.RootStackRouter {
       );
     },
     StudentHomeViewRoute.name: (routeData) {
-      return _i12.CustomPage<dynamic>(
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i5.StudentHomeView(),
         opaque: true,
@@ -79,7 +80,7 @@ class StackedRouterWeb extends _i12.RootStackRouter {
     },
     MainLayoutViewRoute.name: (routeData) {
       final args = routeData.argsAs<MainLayoutViewArgs>();
-      return _i12.CustomPage<dynamic>(
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
         child: _i6.MainLayoutView(
           key: args.key,
@@ -91,7 +92,7 @@ class StackedRouterWeb extends _i12.RootStackRouter {
     },
     StudentDashboardViewRoute.name: (routeData) {
       final args = routeData.argsAs<StudentDashboardViewArgs>();
-      return _i12.CustomPage<dynamic>(
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
         child: _i7.StudentDashboardView(
           key: args.key,
@@ -102,7 +103,7 @@ class StackedRouterWeb extends _i12.RootStackRouter {
       );
     },
     TeacherHomeViewRoute.name: (routeData) {
-      return _i12.CustomPage<dynamic>(
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i8.TeacherHomeView(),
         opaque: true,
@@ -111,7 +112,7 @@ class StackedRouterWeb extends _i12.RootStackRouter {
     },
     TeacherLectureViewRoute.name: (routeData) {
       final args = routeData.argsAs<TeacherLectureViewArgs>();
-      return _i12.CustomPage<dynamic>(
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
         child: _i9.TeacherLectureView(
           key: args.key,
@@ -121,10 +122,18 @@ class StackedRouterWeb extends _i12.RootStackRouter {
         barrierDismissible: false,
       );
     },
-    UnknownViewRoute.name: (routeData) {
-      return _i12.CustomPage<dynamic>(
+    VideoFeedViewRoute.name: (routeData) {
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i10.UnknownView(),
+        child: const _i10.VideoFeedView(),
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    UnknownViewRoute.name: (routeData) {
+      return _i13.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i11.UnknownView(),
         opaque: true,
         barrierDismissible: false,
       );
@@ -132,48 +141,52 @@ class StackedRouterWeb extends _i12.RootStackRouter {
   };
 
   @override
-  List<_i12.RouteConfig> get routes => [
-        _i12.RouteConfig(
+  List<_i13.RouteConfig> get routes => [
+        _i13.RouteConfig(
           StartupViewRoute.name,
           path: '/',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           HomeViewRoute.name,
           path: '/home-view',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           QuizViewRoute.name,
           path: '/quiz-view',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           FlashcardViewRoute.name,
           path: '/flashcard-view',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           StudentHomeViewRoute.name,
           path: '/student-home-view',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           MainLayoutViewRoute.name,
           path: '/main-layout-view',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           StudentDashboardViewRoute.name,
           path: '/student-dashboard-view',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           TeacherHomeViewRoute.name,
           path: '/teacher-home-view',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           TeacherLectureViewRoute.name,
           path: '/teacher-lecture-view',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
+          VideoFeedViewRoute.name,
+          path: '/video-feed-view',
+        ),
+        _i13.RouteConfig(
           UnknownViewRoute.name,
           path: '/404',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           '*#redirect',
           path: '*',
           redirectTo: '/404',
@@ -184,7 +197,7 @@ class StackedRouterWeb extends _i12.RootStackRouter {
 
 /// generated route for
 /// [_i1.StartupView]
-class StartupViewRoute extends _i12.PageRouteInfo<void> {
+class StartupViewRoute extends _i13.PageRouteInfo<void> {
   const StartupViewRoute()
       : super(
           StartupViewRoute.name,
@@ -196,7 +209,7 @@ class StartupViewRoute extends _i12.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.HomeView]
-class HomeViewRoute extends _i12.PageRouteInfo<void> {
+class HomeViewRoute extends _i13.PageRouteInfo<void> {
   const HomeViewRoute()
       : super(
           HomeViewRoute.name,
@@ -208,9 +221,9 @@ class HomeViewRoute extends _i12.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.QuizView]
-class QuizViewRoute extends _i12.PageRouteInfo<QuizViewArgs> {
+class QuizViewRoute extends _i13.PageRouteInfo<QuizViewArgs> {
   QuizViewRoute({
-    _i13.Key? key,
+    _i14.Key? key,
     required int lectureNumber,
   }) : super(
           QuizViewRoute.name,
@@ -230,7 +243,7 @@ class QuizViewArgs {
     required this.lectureNumber,
   });
 
-  final _i13.Key? key;
+  final _i14.Key? key;
 
   final int lectureNumber;
 
@@ -242,9 +255,9 @@ class QuizViewArgs {
 
 /// generated route for
 /// [_i4.FlashcardView]
-class FlashcardViewRoute extends _i12.PageRouteInfo<FlashcardViewArgs> {
+class FlashcardViewRoute extends _i13.PageRouteInfo<FlashcardViewArgs> {
   FlashcardViewRoute({
-    _i13.Key? key,
+    _i14.Key? key,
     required int lectureNumber,
   }) : super(
           FlashcardViewRoute.name,
@@ -264,7 +277,7 @@ class FlashcardViewArgs {
     required this.lectureNumber,
   });
 
-  final _i13.Key? key;
+  final _i14.Key? key;
 
   final int lectureNumber;
 
@@ -276,7 +289,7 @@ class FlashcardViewArgs {
 
 /// generated route for
 /// [_i5.StudentHomeView]
-class StudentHomeViewRoute extends _i12.PageRouteInfo<void> {
+class StudentHomeViewRoute extends _i13.PageRouteInfo<void> {
   const StudentHomeViewRoute()
       : super(
           StudentHomeViewRoute.name,
@@ -288,10 +301,10 @@ class StudentHomeViewRoute extends _i12.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.MainLayoutView]
-class MainLayoutViewRoute extends _i12.PageRouteInfo<MainLayoutViewArgs> {
+class MainLayoutViewRoute extends _i13.PageRouteInfo<MainLayoutViewArgs> {
   MainLayoutViewRoute({
-    _i13.Key? key,
-    required _i13.Widget body,
+    _i14.Key? key,
+    required _i14.Widget body,
   }) : super(
           MainLayoutViewRoute.name,
           path: '/main-layout-view',
@@ -310,9 +323,9 @@ class MainLayoutViewArgs {
     required this.body,
   });
 
-  final _i13.Key? key;
+  final _i14.Key? key;
 
-  final _i13.Widget body;
+  final _i14.Widget body;
 
   @override
   String toString() {
@@ -323,9 +336,9 @@ class MainLayoutViewArgs {
 /// generated route for
 /// [_i7.StudentDashboardView]
 class StudentDashboardViewRoute
-    extends _i12.PageRouteInfo<StudentDashboardViewArgs> {
+    extends _i13.PageRouteInfo<StudentDashboardViewArgs> {
   StudentDashboardViewRoute({
-    _i13.Key? key,
+    _i14.Key? key,
     required int lectureNumber,
   }) : super(
           StudentDashboardViewRoute.name,
@@ -345,7 +358,7 @@ class StudentDashboardViewArgs {
     required this.lectureNumber,
   });
 
-  final _i13.Key? key;
+  final _i14.Key? key;
 
   final int lectureNumber;
 
@@ -357,7 +370,7 @@ class StudentDashboardViewArgs {
 
 /// generated route for
 /// [_i8.TeacherHomeView]
-class TeacherHomeViewRoute extends _i12.PageRouteInfo<void> {
+class TeacherHomeViewRoute extends _i13.PageRouteInfo<void> {
   const TeacherHomeViewRoute()
       : super(
           TeacherHomeViewRoute.name,
@@ -370,9 +383,9 @@ class TeacherHomeViewRoute extends _i12.PageRouteInfo<void> {
 /// generated route for
 /// [_i9.TeacherLectureView]
 class TeacherLectureViewRoute
-    extends _i12.PageRouteInfo<TeacherLectureViewArgs> {
+    extends _i13.PageRouteInfo<TeacherLectureViewArgs> {
   TeacherLectureViewRoute({
-    _i13.Key? key,
+    _i14.Key? key,
     required int lectureNumber,
   }) : super(
           TeacherLectureViewRoute.name,
@@ -392,7 +405,7 @@ class TeacherLectureViewArgs {
     required this.lectureNumber,
   });
 
-  final _i13.Key? key;
+  final _i14.Key? key;
 
   final int lectureNumber;
 
@@ -403,8 +416,20 @@ class TeacherLectureViewArgs {
 }
 
 /// generated route for
-/// [_i10.UnknownView]
-class UnknownViewRoute extends _i12.PageRouteInfo<void> {
+/// [_i10.VideoFeedView]
+class VideoFeedViewRoute extends _i13.PageRouteInfo<void> {
+  const VideoFeedViewRoute()
+      : super(
+          VideoFeedViewRoute.name,
+          path: '/video-feed-view',
+        );
+
+  static const String name = 'VideoFeedView';
+}
+
+/// generated route for
+/// [_i11.UnknownView]
+class UnknownViewRoute extends _i13.PageRouteInfo<void> {
   const UnknownViewRoute()
       : super(
           UnknownViewRoute.name,
@@ -414,9 +439,9 @@ class UnknownViewRoute extends _i12.PageRouteInfo<void> {
   static const String name = 'UnknownView';
 }
 
-extension RouterStateExtension on _i11.RouterService {
+extension RouterStateExtension on _i12.RouterService {
   Future<dynamic> navigateToStartupView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const StartupViewRoute(),
       onFailure: onFailure,
@@ -424,7 +449,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToHomeView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const HomeViewRoute(),
       onFailure: onFailure,
@@ -432,9 +457,9 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToQuizView({
-    _i13.Key? key,
+    _i14.Key? key,
     required int lectureNumber,
-    void Function(_i12.NavigationFailure)? onFailure,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
       QuizViewRoute(
@@ -446,9 +471,9 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToFlashcardView({
-    _i13.Key? key,
+    _i14.Key? key,
     required int lectureNumber,
-    void Function(_i12.NavigationFailure)? onFailure,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
       FlashcardViewRoute(
@@ -460,7 +485,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToStudentHomeView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const StudentHomeViewRoute(),
       onFailure: onFailure,
@@ -468,9 +493,9 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToMainLayoutView({
-    _i13.Key? key,
-    required _i13.Widget body,
-    void Function(_i12.NavigationFailure)? onFailure,
+    _i14.Key? key,
+    required _i14.Widget body,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
       MainLayoutViewRoute(
@@ -482,9 +507,9 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToStudentDashboardView({
-    _i13.Key? key,
+    _i14.Key? key,
     required int lectureNumber,
-    void Function(_i12.NavigationFailure)? onFailure,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
       StudentDashboardViewRoute(
@@ -496,7 +521,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToTeacherHomeView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const TeacherHomeViewRoute(),
       onFailure: onFailure,
@@ -504,9 +529,9 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToTeacherLectureView({
-    _i13.Key? key,
+    _i14.Key? key,
     required int lectureNumber,
-    void Function(_i12.NavigationFailure)? onFailure,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
       TeacherLectureViewRoute(
@@ -517,8 +542,16 @@ extension RouterStateExtension on _i11.RouterService {
     );
   }
 
+  Future<dynamic> navigateToVideoFeedView(
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
+    return navigateTo(
+      const VideoFeedViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
   Future<dynamic> navigateToUnknownView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const UnknownViewRoute(),
       onFailure: onFailure,
@@ -526,7 +559,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithStartupView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const StartupViewRoute(),
       onFailure: onFailure,
@@ -534,7 +567,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithHomeView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const HomeViewRoute(),
       onFailure: onFailure,
@@ -542,9 +575,9 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithQuizView({
-    _i13.Key? key,
+    _i14.Key? key,
     required int lectureNumber,
-    void Function(_i12.NavigationFailure)? onFailure,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
       QuizViewRoute(
@@ -556,9 +589,9 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithFlashcardView({
-    _i13.Key? key,
+    _i14.Key? key,
     required int lectureNumber,
-    void Function(_i12.NavigationFailure)? onFailure,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
       FlashcardViewRoute(
@@ -570,7 +603,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithStudentHomeView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const StudentHomeViewRoute(),
       onFailure: onFailure,
@@ -578,9 +611,9 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithMainLayoutView({
-    _i13.Key? key,
-    required _i13.Widget body,
-    void Function(_i12.NavigationFailure)? onFailure,
+    _i14.Key? key,
+    required _i14.Widget body,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
       MainLayoutViewRoute(
@@ -592,9 +625,9 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithStudentDashboardView({
-    _i13.Key? key,
+    _i14.Key? key,
     required int lectureNumber,
-    void Function(_i12.NavigationFailure)? onFailure,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
       StudentDashboardViewRoute(
@@ -606,7 +639,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithTeacherHomeView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const TeacherHomeViewRoute(),
       onFailure: onFailure,
@@ -614,9 +647,9 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithTeacherLectureView({
-    _i13.Key? key,
+    _i14.Key? key,
     required int lectureNumber,
-    void Function(_i12.NavigationFailure)? onFailure,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
       TeacherLectureViewRoute(
@@ -627,8 +660,16 @@ extension RouterStateExtension on _i11.RouterService {
     );
   }
 
+  Future<dynamic> replaceWithVideoFeedView(
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
+    return replaceWith(
+      const VideoFeedViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
   Future<dynamic> replaceWithUnknownView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const UnknownViewRoute(),
       onFailure: onFailure,
