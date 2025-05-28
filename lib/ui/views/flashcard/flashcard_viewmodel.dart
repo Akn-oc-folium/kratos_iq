@@ -1,42 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:kratos_iq/app/app.locator.dart';
+import 'package:kratos_iq/models/flashcard_overview_model.dart';
+import 'package:kratos_iq/services/api_service.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class FlashcardViewModel extends BaseViewModel {
   final _routerService = locator<RouterService>();
-
+  final ApiService _apiService = locator<ApiService>();
   final String lectureId;
+
   int currentCardIndex = 0;
-  List<Flashcard> flashcards = [];
+  List<FlashCardDatum> flashcards = [];
   Set<int> visitedCards = {};
   bool isLoading = true;
   bool isFlipped = false;
 
   FlashcardViewModel(this.lectureId) {
-    fetchFlashcards();
+    fetchFlashcards(lectureId);
   }
 
-  Future<void> fetchFlashcards() async {
+  Future<void> fetchFlashcards(String lectureId) async {
     isLoading = true;
     notifyListeners();
+    try {
+      final response = await _apiService.getFlashCards(lectureId);
+      flashcards = response.data;
 
-    await Future.delayed(const Duration(seconds: 1));
-
-    flashcards = List.generate(
-      10,
-      (index) => Flashcard(
-        title: "Flashcard ${index + 1}",
-        content: "Content for Flashcard ${index + 1}",
-      ),
-    );
-
-    isLoading = false;
-    notifyListeners();
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Error fetching flashcard overview: $e');
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
   }
 
-  Flashcard? get currentCard {
+  FlashCardDatum? get currentCard {
     if (flashcards.isEmpty) return null;
     return flashcards[currentCardIndex];
   }
@@ -72,15 +73,8 @@ class FlashcardViewModel extends BaseViewModel {
   }
 
   Color getCardStatusColor(int index) {
-    if (index == currentCardIndex) return kcSkyBlue; // Current card
-    if (visitedCards.contains(index)) return kcLimeCCB; // Visited
-    return kcSkyLightBlue; // Not visited
+    if (index == currentCardIndex) return kcSkyBlue;
+    if (visitedCards.contains(index)) return kcLimeCCB;
+    return kcSkyLightBlue;
   }
-}
-
-class Flashcard {
-  final String title;
-  final String content;
-
-  Flashcard({required this.title, required this.content});
 }

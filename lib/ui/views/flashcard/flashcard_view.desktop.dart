@@ -23,105 +23,98 @@ class FlashcardViewDesktop extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: Column(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: viewModel.goBack,
-                          child: const Row(
-                            children: [
-                              Icon(
-                                Icons.arrow_back,
-                                size: 16,
-                                color: kcLime30D,
-                              ),
-                              horizontal08,
-                              Text(
-                                'Back',
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: kcLime30D),
-                              ),
-                            ],
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: viewModel.goBack,
+                            child: const Row(
+                              children: [
+                                Icon(
+                                  Icons.arrow_back,
+                                  size: 16,
+                                  color: kcLime30D,
+                                ),
+                                horizontal08,
+                                Text(
+                                  'Back',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: kcLime30D),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        vertical32,
-                        Text(
-                          'Flashcard ${viewModel.lectureId}',
-                          style: const TextStyle(
-                            fontSize: 48,
-                            fontWeight: FontWeight.w800,
+                          vertical32,
+                          Text(
+                            'Flashcard ${viewModel.lectureId}',
+                            style: const TextStyle(
+                              fontSize: 48,
+                              fontWeight: FontWeight.w800,
+                            ),
                           ),
-                        ),
-                        vertical08,
-                        vertical04,
-                        Text(
-                          "Lecture ${viewModel.lectureId}",
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w600),
-                        ),
-                        vertical16,
-                        vertical04,
-                        const Divider(),
-                        vertical08,
-                        vertical04,
-                        Text(
-                          "${viewModel.currentCardIndex + 1}/${viewModel.flashcards.length}",
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
-                        vertical08,
-                      ],
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          vertical08,
+                          vertical04,
+                          Text(
+                            "Lecture ${viewModel.lectureId}",
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w600),
+                          ),
+                          vertical16,
+                          vertical04,
+                          const Divider(),
+                          vertical08,
+                          vertical04,
+                          Text(
+                            "${viewModel.currentCardIndex + 1}/${viewModel.flashcards.length}",
+                            style: const TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w600),
+                          ),
+                          vertical08,
+                          if (viewModel.isLoading)
+                            const Center(child: CircularProgressIndicator())
+                          else if (viewModel.currentCard != null)
+                            FlashCard(
+                              title: viewModel.currentCard!.label,
+                              content: viewModel.currentCard!.content,
+                              onTap: () => viewModel.toggleFlashcard(),
+                              isFlipped: viewModel.isFlipped,
+                            ),
+                          vertical16,
+                          vertical04,
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            if (viewModel.isLoading)
-                              const Center(child: CircularProgressIndicator())
-                            else if (viewModel.currentCard != null)
-                              FlashCard(
-                                title: viewModel.currentCard!.title,
-                                content: viewModel.currentCard!.content,
-                                onTap: () => viewModel.toggleFlashcard(),
-                                isFlipped: viewModel.isFlipped,
+                            ElevatedButton(
+                              onPressed: viewModel.previousCard,
+                              child: const Text(
+                                "Previous",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w500),
                               ),
-                            vertical16,
-                            vertical04,
+                            ),
+                            horizontal16,
+                            ElevatedButton(
+                              onPressed: viewModel.nextCard,
+                              child: const Text(
+                                "Next",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w600),
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(
-                            onPressed: viewModel.previousCard,
-                            child: const Text(
-                              "Previous",
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          horizontal16,
-                          ElevatedButton(
-                            onPressed: viewModel.nextCard,
-                            child: const Text(
-                              "Next",
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w600),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
 
@@ -152,7 +145,7 @@ class FlashcardViewDesktop extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
-                            viewModel.flashcards[index].title,
+                            viewModel.flashcards[index].label,
                             style: const TextStyle(fontSize: 14),
                           ),
                         ),

@@ -72,4 +72,29 @@ class ApiService {
       throw errorMessage;
     }
   }
+
+  Future<FlashCardOverview> getFlashCards(String lectureId) async {
+    try {
+      final Response<dynamic> response = await apiClient.get(
+        AppConstants.flashCardOverviewEndpoint,
+        queryParameters: {
+          'lecture_id': lectureId,
+        },
+      );
+      if (response.statusCode == 200) {
+        return FlashCardOverview.fromJson(
+            response.data as Map<String, dynamic>);
+      } else {
+        throw Exception('Failed to fetch the quizzes!');
+      }
+    } catch (e) {
+      String errorMessage;
+      if (e is DioException) {
+        errorMessage = DioExceptions.fromDioError(e).toString();
+      } else {
+        errorMessage = 'An unexpected error occurred: ${e.toString()}';
+      }
+      throw errorMessage;
+    }
+  }
 }
