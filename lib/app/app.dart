@@ -15,6 +15,7 @@ import 'package:kratos_iq/services/role_service.dart';
 import 'package:kratos_iq/ui/views/teacher_lecture/teacher_lecture_view.dart';
 import 'package:kratos_iq/ui/views/video_feed/video_feed_view.dart';
 import 'package:kratos_iq/services/device_service.dart';
+import 'package:kratos_iq/services/api_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -42,6 +43,7 @@ import 'package:kratos_iq/services/device_service.dart';
     LazySingleton(classType: RouterService),
     LazySingleton(classType: RoleService),
     LazySingleton(classType: DeviceService),
+    LazySingleton(classType: ApiService),
 // @stacked-service
   ],
   bottomsheets: [

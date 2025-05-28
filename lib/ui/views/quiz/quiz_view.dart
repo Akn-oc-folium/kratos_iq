@@ -8,8 +8,8 @@ import 'quiz_view.mobile.dart';
 import 'quiz_viewmodel.dart';
 
 class QuizView extends StackedView<QuizViewModel> {
-  final int lectureNumber;
-  const QuizView({super.key, required this.lectureNumber});
+  final String lectureId;
+  const QuizView({super.key, required this.lectureId});
 
   @override
   Widget builder(
@@ -21,7 +21,7 @@ class QuizView extends StackedView<QuizViewModel> {
       mobile: (_) => const QuizViewMobile(),
       tablet: (_) => const QuizViewTablet(),
       desktop: (_) => QuizViewDesktop(
-        lectureNumber: lectureNumber,
+        lectureId: lectureId,
       ),
     );
   }
@@ -30,5 +30,5 @@ class QuizView extends StackedView<QuizViewModel> {
   QuizViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      QuizViewModel(lectureNumber);
+      QuizViewModel(lectureId);
 }

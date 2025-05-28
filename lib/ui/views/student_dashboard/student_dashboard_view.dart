@@ -8,8 +8,8 @@ import 'student_dashboard_view.mobile.dart';
 import 'student_dashboard_viewmodel.dart';
 
 class StudentDashboardView extends StackedView<StudentDashboardViewModel> {
-  final int lectureNumber;
-  const StudentDashboardView({super.key, required this.lectureNumber});
+  final String lectureId;
+  const StudentDashboardView({super.key, required this.lectureId});
 
   @override
   Widget builder(
@@ -20,7 +20,7 @@ class StudentDashboardView extends StackedView<StudentDashboardViewModel> {
     return ScreenTypeLayout.builder(
       mobile: (_) => const StudentDashboardViewMobile(),
       tablet: (_) => const StudentDashboardViewTablet(),
-      desktop: (_) => StudentDashboardViewDesktop(lectureNumber: lectureNumber),
+      desktop: (_) => StudentDashboardViewDesktop(lectureId: lectureId),
     );
   }
 
@@ -28,5 +28,5 @@ class StudentDashboardView extends StackedView<StudentDashboardViewModel> {
   StudentDashboardViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      StudentDashboardViewModel(lectureNumber);
+      StudentDashboardViewModel(lectureId);
 }

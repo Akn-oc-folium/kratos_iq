@@ -52,7 +52,7 @@ class StackedRouterWeb extends _i13.RootStackRouter {
         routeData: routeData,
         child: _i3.QuizView(
           key: args.key,
-          lectureNumber: args.lectureNumber,
+          lectureId: args.lectureId,
         ),
         opaque: true,
         barrierDismissible: false,
@@ -64,7 +64,7 @@ class StackedRouterWeb extends _i13.RootStackRouter {
         routeData: routeData,
         child: _i4.FlashcardView(
           key: args.key,
-          lectureNumber: args.lectureNumber,
+          lectureId: args.lectureId,
         ),
         opaque: true,
         barrierDismissible: false,
@@ -96,7 +96,7 @@ class StackedRouterWeb extends _i13.RootStackRouter {
         routeData: routeData,
         child: _i7.StudentDashboardView(
           key: args.key,
-          lectureNumber: args.lectureNumber,
+          lectureId: args.lectureId,
         ),
         opaque: true,
         barrierDismissible: false,
@@ -224,13 +224,13 @@ class HomeViewRoute extends _i13.PageRouteInfo<void> {
 class QuizViewRoute extends _i13.PageRouteInfo<QuizViewArgs> {
   QuizViewRoute({
     _i14.Key? key,
-    required int lectureNumber,
+    required String lectureId,
   }) : super(
           QuizViewRoute.name,
           path: '/quiz-view',
           args: QuizViewArgs(
             key: key,
-            lectureNumber: lectureNumber,
+            lectureId: lectureId,
           ),
         );
 
@@ -240,16 +240,16 @@ class QuizViewRoute extends _i13.PageRouteInfo<QuizViewArgs> {
 class QuizViewArgs {
   const QuizViewArgs({
     this.key,
-    required this.lectureNumber,
+    required this.lectureId,
   });
 
   final _i14.Key? key;
 
-  final int lectureNumber;
+  final String lectureId;
 
   @override
   String toString() {
-    return 'QuizViewArgs{key: $key, lectureNumber: $lectureNumber}';
+    return 'QuizViewArgs{key: $key, lectureId: $lectureId}';
   }
 }
 
@@ -258,13 +258,13 @@ class QuizViewArgs {
 class FlashcardViewRoute extends _i13.PageRouteInfo<FlashcardViewArgs> {
   FlashcardViewRoute({
     _i14.Key? key,
-    required int lectureNumber,
+    required String lectureId,
   }) : super(
           FlashcardViewRoute.name,
           path: '/flashcard-view',
           args: FlashcardViewArgs(
             key: key,
-            lectureNumber: lectureNumber,
+            lectureId: lectureId,
           ),
         );
 
@@ -274,16 +274,16 @@ class FlashcardViewRoute extends _i13.PageRouteInfo<FlashcardViewArgs> {
 class FlashcardViewArgs {
   const FlashcardViewArgs({
     this.key,
-    required this.lectureNumber,
+    required this.lectureId,
   });
 
   final _i14.Key? key;
 
-  final int lectureNumber;
+  final String lectureId;
 
   @override
   String toString() {
-    return 'FlashcardViewArgs{key: $key, lectureNumber: $lectureNumber}';
+    return 'FlashcardViewArgs{key: $key, lectureId: $lectureId}';
   }
 }
 
@@ -339,13 +339,13 @@ class StudentDashboardViewRoute
     extends _i13.PageRouteInfo<StudentDashboardViewArgs> {
   StudentDashboardViewRoute({
     _i14.Key? key,
-    required int lectureNumber,
+    required String lectureId,
   }) : super(
           StudentDashboardViewRoute.name,
           path: '/student-dashboard-view',
           args: StudentDashboardViewArgs(
             key: key,
-            lectureNumber: lectureNumber,
+            lectureId: lectureId,
           ),
         );
 
@@ -355,16 +355,16 @@ class StudentDashboardViewRoute
 class StudentDashboardViewArgs {
   const StudentDashboardViewArgs({
     this.key,
-    required this.lectureNumber,
+    required this.lectureId,
   });
 
   final _i14.Key? key;
 
-  final int lectureNumber;
+  final String lectureId;
 
   @override
   String toString() {
-    return 'StudentDashboardViewArgs{key: $key, lectureNumber: $lectureNumber}';
+    return 'StudentDashboardViewArgs{key: $key, lectureId: $lectureId}';
   }
 }
 
@@ -458,13 +458,13 @@ extension RouterStateExtension on _i12.RouterService {
 
   Future<dynamic> navigateToQuizView({
     _i14.Key? key,
-    required int lectureNumber,
+    required String lectureId,
     void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
       QuizViewRoute(
         key: key,
-        lectureNumber: lectureNumber,
+        lectureId: lectureId,
       ),
       onFailure: onFailure,
     );
@@ -472,13 +472,13 @@ extension RouterStateExtension on _i12.RouterService {
 
   Future<dynamic> navigateToFlashcardView({
     _i14.Key? key,
-    required int lectureNumber,
+    required String lectureId,
     void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
       FlashcardViewRoute(
         key: key,
-        lectureNumber: lectureNumber,
+        lectureId: lectureId,
       ),
       onFailure: onFailure,
     );
@@ -508,13 +508,13 @@ extension RouterStateExtension on _i12.RouterService {
 
   Future<dynamic> navigateToStudentDashboardView({
     _i14.Key? key,
-    required int lectureNumber,
+    required String lectureId,
     void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
       StudentDashboardViewRoute(
         key: key,
-        lectureNumber: lectureNumber,
+        lectureId: lectureId,
       ),
       onFailure: onFailure,
     );
@@ -576,13 +576,13 @@ extension RouterStateExtension on _i12.RouterService {
 
   Future<dynamic> replaceWithQuizView({
     _i14.Key? key,
-    required int lectureNumber,
+    required String lectureId,
     void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
       QuizViewRoute(
         key: key,
-        lectureNumber: lectureNumber,
+        lectureId: lectureId,
       ),
       onFailure: onFailure,
     );
@@ -590,13 +590,13 @@ extension RouterStateExtension on _i12.RouterService {
 
   Future<dynamic> replaceWithFlashcardView({
     _i14.Key? key,
-    required int lectureNumber,
+    required String lectureId,
     void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
       FlashcardViewRoute(
         key: key,
-        lectureNumber: lectureNumber,
+        lectureId: lectureId,
       ),
       onFailure: onFailure,
     );
@@ -626,13 +626,13 @@ extension RouterStateExtension on _i12.RouterService {
 
   Future<dynamic> replaceWithStudentDashboardView({
     _i14.Key? key,
-    required int lectureNumber,
+    required String lectureId,
     void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
       StudentDashboardViewRoute(
         key: key,
-        lectureNumber: lectureNumber,
+        lectureId: lectureId,
       ),
       onFailure: onFailure,
     );

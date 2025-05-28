@@ -8,8 +8,8 @@ import 'flashcard_view.mobile.dart';
 import 'flashcard_viewmodel.dart';
 
 class FlashcardView extends StackedView<FlashcardViewModel> {
-  final int lectureNumber;
-  const FlashcardView({super.key, required this.lectureNumber});
+  final String lectureId;
+  const FlashcardView({super.key, required this.lectureId});
 
   @override
   Widget builder(
@@ -21,7 +21,7 @@ class FlashcardView extends StackedView<FlashcardViewModel> {
       mobile: (_) => const FlashcardViewMobile(),
       tablet: (_) => const FlashcardViewTablet(),
       desktop: (_) => FlashcardViewDesktop(
-        lectureNumber: lectureNumber,
+        lectureId: lectureId,
       ),
     );
   }
@@ -30,5 +30,5 @@ class FlashcardView extends StackedView<FlashcardViewModel> {
   FlashcardViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      FlashcardViewModel(lectureNumber);
+      FlashcardViewModel(lectureId);
 }

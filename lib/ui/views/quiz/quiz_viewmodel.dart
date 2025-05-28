@@ -6,7 +6,7 @@ import 'package:stacked_services/stacked_services.dart';
 class QuizViewModel extends BaseViewModel {
   final _routerService = locator<RouterService>();
 
-  final int lectureNumber;
+  final String lectureId;
   int currentQuestionIndex = 0;
   List<Question> questions = [];
   Set<int> answeredQuestions = {};
@@ -14,7 +14,7 @@ class QuizViewModel extends BaseViewModel {
   Map<int, bool> hasNavigated = {};
   bool isLoading = true;
 
-  QuizViewModel(this.lectureNumber) {
+  QuizViewModel(this.lectureId) {
     fetchQuestions();
   }
 

@@ -7,14 +7,14 @@ import 'package:stacked_services/stacked_services.dart';
 class FlashcardViewModel extends BaseViewModel {
   final _routerService = locator<RouterService>();
 
-  final int lectureNumber;
+  final String lectureId;
   int currentCardIndex = 0;
   List<Flashcard> flashcards = [];
   Set<int> visitedCards = {};
   bool isLoading = true;
   bool isFlipped = false;
 
-  FlashcardViewModel(this.lectureNumber) {
+  FlashcardViewModel(this.lectureId) {
     fetchFlashcards();
   }
 

@@ -4,11 +4,11 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class StudentDashboardViewModel extends BaseViewModel {
-  final int lectureNumber;
+  final String lectureId;
 
   final _routerService = locator<RouterService>();
 
-  StudentDashboardViewModel(this.lectureNumber) {}
+  StudentDashboardViewModel(this.lectureId) {}
 
   List<Map<String, dynamic>> lectures = [
     {

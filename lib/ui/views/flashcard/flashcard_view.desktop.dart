@@ -7,14 +7,14 @@ import 'package:kratos_iq/ui/widgets/flash_card.dart';
 import 'package:kratos_iq/ui/common/ui_helpers.dart';
 
 class FlashcardViewDesktop extends StatelessWidget {
-  final int lectureNumber;
+  final String lectureId;
 
-  const FlashcardViewDesktop({super.key, required this.lectureNumber});
+  const FlashcardViewDesktop({super.key, required this.lectureId});
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<FlashcardViewModel>.reactive(
-      viewModelBuilder: () => FlashcardViewModel(lectureNumber),
+      viewModelBuilder: () => FlashcardViewModel(lectureId),
       builder: (context, viewModel, child) => MainLayoutView(
         body: Padding(
           padding: const EdgeInsets.only(
@@ -50,7 +50,7 @@ class FlashcardViewDesktop extends StatelessWidget {
                         ),
                         vertical32,
                         Text(
-                          'Flashcard ${viewModel.lectureNumber}',
+                          'Flashcard ${viewModel.lectureId}',
                           style: const TextStyle(
                             fontSize: 48,
                             fontWeight: FontWeight.w800,
@@ -59,7 +59,7 @@ class FlashcardViewDesktop extends StatelessWidget {
                         vertical08,
                         vertical04,
                         Text(
-                          "Lecture ${viewModel.lectureNumber}",
+                          "Lecture ${viewModel.lectureId}",
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w600),
                         ),

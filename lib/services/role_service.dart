@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:kratos_iq/app/app.locator.dart';
 import 'package:kratos_iq/app/app.router.dart';
 import 'package:stacked/stacked.dart';

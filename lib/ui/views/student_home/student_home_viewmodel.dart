@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:kratos_iq/app/app.locator.dart';
 import 'package:kratos_iq/app/app.router.dart';
+import 'package:kratos_iq/models/quiz_overview_model.dart';
+import 'package:kratos_iq/services/api_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:kratos_iq/gen/assets.gen.dart';
@@ -7,63 +10,11 @@ import 'package:stacked_services/stacked_services.dart';
 
 class StudentHomeViewModel extends BaseViewModel {
   final _routerService = locator<RouterService>();
+  final ApiService _apiService = locator<ApiService>();
+  bool isLoading = false;
+  List<Map<String, dynamic>> lectures = [];
 
-  List<Map<String, dynamic>> lectures = [
-    {
-      'lectureNumber': 1,
-      'lecture': 'Lecture 1',
-      'date': 'Apr 10',
-      'color': kcDarkGreenColor,
-    },
-    {
-      'lectureNumber': 2,
-      'lecture': 'Lecture 2',
-      'date': 'Apr 8',
-      'color': kcGreenColor,
-    },
-    {
-      'lectureNumber': 3,
-      'lecture': 'Lecture 3',
-      'date': 'Apr 2',
-      'color': kcLime264,
-    },
-    {
-      'lectureNumber': 1,
-      'lecture': 'Lecture 1',
-      'date': 'Apr 10',
-      'color': kcDarkGreenColor,
-    },
-    {
-      'lectureNumber': 2,
-      'lecture': 'Lecture 2',
-      'date': 'Apr 8',
-      'color': kcGreenColor,
-    },
-    {
-      'lectureNumber': 3,
-      'lecture': 'Lecture 3',
-      'date': 'Apr 2',
-      'color': kcLime264,
-    },
-  ];
-
-  List<Map<String, dynamic>> quizzes = [
-    {
-      'lectureNumber': 1,
-      'title': 'Linear Equations',
-      'subTitle': '10 Qs',
-    },
-    {
-      'lectureNumber': 2,
-      'title': 'Design Patterns',
-      'subTitle': '8 Qs',
-    },
-    {
-      'lectureNumber': 3,
-      'title': 'Set Theory Basics',
-      'subTitle': '12 Qs',
-    },
-  ];
+  List<QuizDatum> quizzes = [];
 
   List<Map<String, dynamic>> flashcards = [
     {
@@ -92,15 +43,122 @@ class StudentHomeViewModel extends BaseViewModel {
     },
   ];
 
-  navigateToLecturePage(int lectureNumber) {
-    _routerService.navigateToStudentDashboardView(lectureNumber: lectureNumber);
+  Future<void> init() async {
+    await fetchLectureOverview();
+    await fetchQuizOverview();
+    await fetchFlashCardOverview();
   }
 
-  navigateToQuiz(int lectureNumber) {
-    _routerService.navigateToQuizView(lectureNumber: lectureNumber);
+  navigateToLecturePage(String lectureId) {
+    _routerService.navigateToStudentDashboardView(lectureId: lectureId);
   }
 
-  navigateToFlashCard(int lectureNumber) {
-    _routerService.navigateToFlashcardView(lectureNumber: lectureNumber);
+  navigateToQuiz(String lectureId) {
+    _routerService.navigateToQuizView(lectureId: lectureId);
+  }
+
+  navigateToFlashCard(String lectureId) {
+    _routerService.navigateToFlashcardView(lectureId: lectureId);
+  }
+
+  final List<Color> _lectureColors = [
+    kcDarkGreenColor,
+    kcGreenColor,
+    kcLime264,
+  ];
+
+  final List<String> assetImages = [
+    Assets.images.designFundamentals.path,
+    Assets.images.aiEthics.path,
+    Assets.images.setTheory.path,
+    Assets.images.vectorSpaces.path,
+  ];
+
+  String _formatDate(DateTime date) {
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ];
+    return '${months[date.month - 1]} ${date.day}';
+  }
+
+  Future<void> fetchLectureOverview() async {
+    isLoading = true;
+    notifyListeners();
+    try {
+      final response = await _apiService.getLectureOverview();
+      final lectureOverview = response;
+
+      lectures = lectureOverview.data.asMap().entries.map((entry) {
+        int index = entry.key;
+        final lecture = entry.value;
+
+        return {
+          'lectureId': lecture.lectureId,
+          'lectureNumber': lecture.lectureNumber,
+          'lecture': 'Lecture ${lecture.lectureNumber}',
+          'date': _formatDate(lecture.date),
+          'color': _lectureColors[index % _lectureColors.length],
+        };
+      }).toList();
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Error fetching lecture overview: $e');
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> fetchQuizOverview() async {
+    isLoading = true;
+    notifyListeners();
+    try {
+      final response = await _apiService.getQuizOverview();
+      quizzes = response.data;
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Error fetching quiz overview: $e');
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> fetchFlashCardOverview() async {
+    isLoading = true;
+    notifyListeners();
+    try {
+      final response = await _apiService.getFlashCardOverview();
+
+      flashcards = response.data.asMap().entries.map((entry) {
+        final index = entry.key;
+        final item = entry.value;
+
+        return {
+          'lectureNumber': item.lectureNumber,
+          'lectureId': item.lectureId,
+          'label': item.label,
+          'content': item.content,
+          'assetImage': assetImages[index % assetImages.length],
+        };
+      }).toList();
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Error fetching flashcard overview: $e');
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
   }
 }

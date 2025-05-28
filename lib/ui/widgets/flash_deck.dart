@@ -20,7 +20,7 @@ class FlashDeck extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        height: 124,
+        height: 150,
         width: 158,
         child: Column(
           children: [

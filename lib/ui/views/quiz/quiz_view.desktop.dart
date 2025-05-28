@@ -8,13 +8,13 @@ import 'package:stacked/stacked.dart';
 import 'quiz_viewmodel.dart';
 
 class QuizViewDesktop extends StatelessWidget {
-  final int lectureNumber;
-  const QuizViewDesktop({super.key, required this.lectureNumber});
+  final String lectureId;
+  const QuizViewDesktop({super.key, required this.lectureId});
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<QuizViewModel>.reactive(
-        viewModelBuilder: () => QuizViewModel(lectureNumber),
+        viewModelBuilder: () => QuizViewModel(lectureId),
         builder: (context, viewModel, child) => MainLayoutView(
               body: SizedBox.expand(
                 child: SingleChildScrollView(
@@ -50,7 +50,7 @@ class QuizViewDesktop extends StatelessWidget {
                               ),
                               vertical32,
                               Text(
-                                'Quiz ${viewModel.lectureNumber}',
+                                'Quiz ${viewModel.lectureId}',
                                 style: const TextStyle(
                                   fontSize: 48,
                                   fontWeight: FontWeight.w800,

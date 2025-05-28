@@ -17,6 +17,7 @@ dependencies:
   flutter_gen_runner: ^5.10.0
   shadcn_flutter: ^0.0.36
   just_audio: ^0.10.3
+  dio: ^5.8.0+1
 
 dev_dependencies:
   build_runner: ^2.4.5

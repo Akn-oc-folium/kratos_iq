@@ -9,13 +9,13 @@ import 'package:stacked/stacked.dart';
 import 'student_dashboard_viewmodel.dart';
 
 class StudentDashboardViewDesktop extends StatelessWidget {
-  final int lectureNumber;
-  const StudentDashboardViewDesktop({super.key, required this.lectureNumber});
+  final String lectureId;
+  const StudentDashboardViewDesktop({super.key, required this.lectureId});
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<StudentDashboardViewModel>.reactive(
-        viewModelBuilder: () => StudentDashboardViewModel(lectureNumber),
+        viewModelBuilder: () => StudentDashboardViewModel(lectureId),
         builder: (context, viewModel, child) => MainLayoutView(
                 body: SingleChildScrollView(
               child: Column(
