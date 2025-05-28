@@ -16,6 +16,7 @@ class AppConstants {
   static const String baseUrl = 'https://api.isomorphiq.com/kratos';
   static const String lectureOverviewEndpoint = '/fetch-lectures-overview';
   static const String quizOverviewEndpoint = '/fetch-quizzes-overview';
+  static const String quizSetEndpoint = '/fetch-quiz';
   static const String flashCardOverviewEndpoint = '/fetch-flash-cards-overview';
   static const String flashCardEndpoint = '/fetch-flash-cards';
 }

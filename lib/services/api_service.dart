@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:kratos_iq/models/flashcard_overview_model.dart';
 import 'package:kratos_iq/models/lecture_overview_model.dart';
 import 'package:kratos_iq/models/quiz_overview_model.dart';
+import 'package:kratos_iq/models/quiz_set.dart';
 import 'package:kratos_iq/services/api_client.dart';
 import 'package:kratos_iq/services/api_exceptions.dart';
 import 'package:kratos_iq/ui/common/app_constants.dart';
@@ -59,6 +60,30 @@ class ApiService {
       if (response.statusCode == 200) {
         return FlashCardOverview.fromJson(
             response.data as Map<String, dynamic>);
+      } else {
+        throw Exception('Failed to fetch the quizzes!');
+      }
+    } catch (e) {
+      String errorMessage;
+      if (e is DioException) {
+        errorMessage = DioExceptions.fromDioError(e).toString();
+      } else {
+        errorMessage = 'An unexpected error occurred: ${e.toString()}';
+      }
+      throw errorMessage;
+    }
+  }
+
+  Future<QuizSet> getQuizSet(String lectureId) async {
+    try {
+      final Response<dynamic> response = await apiClient.get(
+        AppConstants.quizSetEndpoint,
+        queryParameters: {
+          'lecture_id': lectureId,
+        },
+      );
+      if (response.statusCode == 200) {
+        return QuizSet.fromJson(response.data as Map<String, dynamic>);
       } else {
         throw Exception('Failed to fetch the quizzes!');
       }

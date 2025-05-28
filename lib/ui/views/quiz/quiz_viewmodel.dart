@@ -1,49 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:kratos_iq/app/app.locator.dart';
+import 'package:kratos_iq/models/quiz_set.dart';
+import 'package:kratos_iq/services/api_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class QuizViewModel extends BaseViewModel {
   final _routerService = locator<RouterService>();
+  final ApiService _apiService = locator<ApiService>();
 
-  final String lectureId;
+  String lectureId;
   int currentQuestionIndex = 0;
   List<Question> questions = [];
   Set<int> answeredQuestions = {};
   Map<int, int?> selectedOptions = {};
   Map<int, bool> hasNavigated = {};
   bool isLoading = true;
+  bool isFinished = false;
 
   QuizViewModel(this.lectureId) {
-    fetchQuestions();
+    fetchQuestions(lectureId);
   }
 
-  Future<void> fetchQuestions() async {
+  Future<void> fetchQuestions(String lectureId) async {
     isLoading = true;
     notifyListeners();
 
-    await Future.delayed(const Duration(seconds: 1));
+    try {
+      final response = await _apiService.getQuizSet(lectureId);
 
-    questions = List.generate(
-      13,
-      (index) => Question(
-        question:
-            'Which of the following best describes the Second Law of Thermodynamics?',
-        options: [
-          'Energy cannot be created or destroyed, only transformed.',
-          'Energy cannot be created or destroyed, only transformed.',
-          'Energy cannot be created or destroyed, only transformed.',
-          'Energy cannot be created or destroyed, only transformed.'
-        ],
-        correctIndex: index % 4,
-      ),
-    );
+      final quizSet = response.data;
 
-    selectedOptions = {for (int i = 0; i < questions.length; i++) i: null};
-    hasNavigated = {for (int i = 0; i < questions.length; i++) i: false};
+      questions = quizSet.questions;
 
-    isLoading = false;
-    notifyListeners();
+      selectedOptions = {for (int i = 0; i < questions.length; i++) i: null};
+      hasNavigated = {for (int i = 0; i < questions.length; i++) i: false};
+    } catch (e) {
+      debugPrint('Error fetching quiz set: $e');
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
   }
 
   Question? get currentQuestion =>
@@ -85,8 +82,6 @@ class QuizViewModel extends BaseViewModel {
       goToQuestion(currentQuestionIndex - 1);
     }
   }
-
-  bool isFinished = false;
 
   void nextQuestion() {
     if (currentQuestionIndex < questions.length - 1) {
@@ -134,16 +129,4 @@ class QuizViewModel extends BaseViewModel {
 
     return Icons.radio_button_unchecked;
   }
-}
-
-class Question {
-  final String question;
-  final List<String> options;
-  final int correctIndex;
-
-  Question({
-    required this.question,
-    required this.options,
-    required this.correctIndex,
-  });
 }
