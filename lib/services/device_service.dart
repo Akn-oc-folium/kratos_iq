@@ -1,7 +1,7 @@
 import 'package:stacked/stacked.dart';
 
 class DeviceService with ListenableServiceMixin {
-  final ReactiveValue<bool> _isDevice = ReactiveValue<bool>(false);
+  final ReactiveValue<bool> _isDevice = ReactiveValue<bool>(true);
 
   DeviceService() {
     listenToReactiveValues([_isDevice]);

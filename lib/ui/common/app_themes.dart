@@ -17,7 +17,7 @@ class AppThemes {
           'popoverForeground': kcBlack,
           'primary': kcBlack,
           'primaryForeground': kcBlack,
-          'secondary': kcLime30D,
+          'secondary': kcLime264,
           'secondaryForeground': kcLime314,
           'muted': Colors.white,
           'mutedForeground': kcBlack,

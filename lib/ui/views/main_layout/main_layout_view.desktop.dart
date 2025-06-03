@@ -26,14 +26,28 @@ class MainLayoutViewDesktop extends ViewModelWidget<MainLayoutViewModel> {
             fit: BoxFit.contain,
           ),
         ),
-        title: const Row(
+        title: Row(
           children: [
-            SizedBox(
+            const SizedBox(
               width: 427,
             ),
-            ElevatedButton(onPressed: null, child: Text('Home')),
-            SizedBox(width: 16),
-            ElevatedButton(onPressed: null, child: Text('IQ Sense')),
+            ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(
+                    viewModel.isDevice ? kcLime264 : kcGrey,
+                  ),
+                ),
+                onPressed: viewModel.toggleDevice,
+                child: const Text('Home')),
+            const SizedBox(width: 16),
+            ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(
+                    viewModel.isDevice ? kcGrey : kcLime264,
+                  ),
+                ),
+                onPressed: viewModel.toggleDevice,
+                child: const Text('IQ Sense')),
           ],
         ),
         actions: const [

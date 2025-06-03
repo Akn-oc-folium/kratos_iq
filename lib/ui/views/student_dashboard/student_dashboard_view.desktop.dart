@@ -275,6 +275,10 @@ class StudentDashboardViewDesktop extends StatelessWidget {
                                     'timestamp': 20,
                                     'text': 'Let’s jump into an example.'
                                   },
+                                  {
+                                    'timestamp': 120,
+                                    'text': '123Let’s jump into an example.'
+                                  },
                                 ],
                               )
                             ],
