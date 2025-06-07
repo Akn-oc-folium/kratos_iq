@@ -19,6 +19,6 @@ class StartupViewModel extends BaseViewModel {
         ? _roleService.isStudent
             ? await _routerService.replaceWithStudentHomeView()
             : await _routerService.replaceWithTeacherHomeView()
-        : await _routerService.replaceWithVideoFeedView();
+        : await _routerService.replaceWithAssetPlayerView();
   }
 }

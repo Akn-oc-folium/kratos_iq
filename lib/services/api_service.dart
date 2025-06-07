@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:kratos_iq/models/flashcard_overview_model.dart';
+import 'package:kratos_iq/models/lecture_detail.model.dart';
 import 'package:kratos_iq/models/lecture_overview_model.dart';
 import 'package:kratos_iq/models/quiz_overview_model.dart';
 import 'package:kratos_iq/models/quiz_set.dart';
@@ -120,6 +121,38 @@ class ApiService {
         errorMessage = 'An unexpected error occurred: ${e.toString()}';
       }
       throw errorMessage;
+    }
+  }
+
+  Future<String> getLectureVideoUrl(String lectureId) async {
+    try {
+      final Response<dynamic> response = await apiClient.get(
+        '${AppConstants.lectureDetailEndpoint}/$lectureId',
+      );
+
+      if (response.statusCode == 200 && response.data != null) {
+        final lectureDetail = LectureDetail.fromJson(
+          response.data as Map<String, dynamic>,
+        );
+
+        final url = lectureDetail.data.videoDownloadUrl;
+        if (url.isEmpty) {
+          throw Exception('No video URL returned for lecture $lectureId');
+        }
+        return url;
+      } else {
+        throw Exception(
+          'Failed to fetch lecture info (status ${response.statusCode})',
+        );
+      }
+    } catch (e) {
+      String message;
+      if (e is DioException) {
+        message = DioExceptions.fromDioError(e).toString();
+      } else {
+        message = e.toString();
+      }
+      throw Exception('Couldn’t load video URL: $message');
     }
   }
 }

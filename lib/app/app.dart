@@ -16,6 +16,7 @@ import 'package:kratos_iq/ui/views/teacher_lecture/teacher_lecture_view.dart';
 import 'package:kratos_iq/ui/views/video_feed/video_feed_view.dart';
 import 'package:kratos_iq/services/device_service.dart';
 import 'package:kratos_iq/services/api_service.dart';
+import 'package:kratos_iq/ui/views/asset_player/asset_player_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -31,6 +32,7 @@ import 'package:kratos_iq/services/api_service.dart';
     CustomRoute(page: TeacherHomeView),
     CustomRoute(page: TeacherLectureView),
     CustomRoute(page: VideoFeedView),
+    CustomRoute(page: AssetPlayerView),
 // @stacked-route
     CustomRoute(page: UnknownView, path: '/404'),
 
