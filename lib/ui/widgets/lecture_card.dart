@@ -54,10 +54,10 @@ class LectureCard extends StatelessWidget {
             ),
             vertical04,
             vertical08,
-            const LinearProgressIndicator(
+            LinearProgressIndicator(
               value: 0.5,
               color: kcWhite,
-              backgroundColor: kcLime30D,
+              backgroundColor: kcLime500,
             ),
           ],
         ),

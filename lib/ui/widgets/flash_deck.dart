@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:kratos_iq/ui/common/ui_helpers.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 class FlashDeck extends StatelessWidget {
   final AssetImage assetImage;
@@ -20,8 +19,7 @@ class FlashDeck extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        height: 150,
-        width: 158,
+        width: 160,
         child: Column(
           children: [
             Container(
@@ -33,28 +31,27 @@ class FlashDeck extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              child: Stack(children: [
-                Positioned(
-                  left: 19,
-                  bottom: 15,
-                  child: SizedBox(
-                    width: 103,
-                    child: Text(
-                      label,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                          color: kcWhite),
+              child: Stack(
+                children: [
+                  Positioned(
+                    left: 19,
+                    bottom: 15,
+                    child: SizedBox(
+                      width: 103,
+                      child: Text(label).small.semiBold(
+                            height: 1.428,
+                            color: Colors.white,
+                          ),
                     ),
                   ),
-                ),
-              ]),
+                ],
+              ),
             ),
             vertical04,
             Text(
               content,
-              style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
-            )
+              maxLines: 2,
+            ).xSmall.medium(height: 1.666)
           ],
         ),
       ),

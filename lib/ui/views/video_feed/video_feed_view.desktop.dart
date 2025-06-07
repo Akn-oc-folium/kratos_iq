@@ -79,7 +79,7 @@ class VideoFeedViewDesktop extends ViewModelWidget<VideoFeedViewModel> {
                             child: LinearProgressIndicator(
                               value: viewModel.isStreaming ? 0.4 : 0.0,
                               backgroundColor: Colors.grey.shade300,
-                              color: kcLimeC16,
+                              color: kcLime500,
                               minHeight: 6,
                             ),
                           ),
@@ -109,7 +109,7 @@ class VideoFeedViewDesktop extends ViewModelWidget<VideoFeedViewModel> {
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: viewModel.isStreaming
-                                          ? kcLime264
+                                          ? kcLime300
                                           : Colors.grey,
                                     ),
                                     child: IconButton(
@@ -143,8 +143,8 @@ class VideoFeedViewDesktop extends ViewModelWidget<VideoFeedViewModel> {
                                     horizontal: 12, vertical: 6),
                                 decoration: BoxDecoration(
                                   color: viewModel.isStreaming
-                                      ? kcLime264
-                                      : Colors.grey,
+                                      ? kcLime300
+                                      : kcGray400,
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: Text(

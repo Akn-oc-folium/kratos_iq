@@ -21,7 +21,7 @@ class QuizDeck extends StatelessWidget {
         width: 284,
         padding: const EdgeInsets.only(left: 24.0, top: 24.0, right: 24.0),
         decoration: BoxDecoration(
-          color: kcGreenColor,
+          color: kcLime300,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -29,23 +29,24 @@ class QuizDeck extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(
-                  fontWeight: FontWeight.w600, fontSize: 20, color: kcZinc),
+              style: TextStyle(
+                  fontWeight: FontWeight.w600, fontSize: 20, color: kcZinc900),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   subTitle,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                      color: kcLime314),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    color: kcLime900,
+                  ),
                 ),
-                const Icon(
+                Icon(
                   Icons.arrow_right_alt,
                   size: 16,
-                  color: kcLime314,
+                  color: kcLime900,
                 )
               ],
             )

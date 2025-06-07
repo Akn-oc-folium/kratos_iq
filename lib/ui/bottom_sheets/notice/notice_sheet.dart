@@ -38,7 +38,7 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
           verticalSpaceTiny,
           Text(
             request.description!,
-            style: const TextStyle(fontSize: 14, color: kcMediumGrey),
+            style: TextStyle(fontSize: 14, color: kcGray200),
             maxLines: 3,
             softWrap: true,
           ),

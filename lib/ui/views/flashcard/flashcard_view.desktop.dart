@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
-import 'package:kratos_iq/ui/views/main_layout/main_layout_view.dart';
-import 'package:stacked/stacked.dart';
-import 'flashcard_viewmodel.dart';
-import 'package:kratos_iq/ui/widgets/flash_card.dart';
 import 'package:kratos_iq/ui/common/ui_helpers.dart';
+import 'package:kratos_iq/ui/views/main_layout/main_layout_view.dart';
+import 'package:kratos_iq/ui/widgets/flash_card.dart';
+import 'package:stacked/stacked.dart';
+
+import 'flashcard_viewmodel.dart';
 
 class FlashcardViewDesktop extends StatelessWidget {
   final String lectureId;
@@ -31,20 +32,21 @@ class FlashcardViewDesktop extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: viewModel.goBack,
-                            child: const Row(
+                            child: Row(
                               children: [
                                 Icon(
                                   Icons.arrow_back,
                                   size: 16,
-                                  color: kcLime30D,
+                                  color: kcLime300,
                                 ),
                                 horizontal08,
                                 Text(
                                   'Back',
                                   style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: kcLime30D),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: kcLime300,
+                                  ),
                                 ),
                               ],
                             ),

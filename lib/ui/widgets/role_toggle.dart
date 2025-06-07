@@ -39,17 +39,15 @@ class _RoleToggleState extends State<RoleToggle> {
           onChanged: (v) {
             if (!isStudent) _roleService.toggleRole();
           },
-          child: const Text('Student').bold().center(),
+          child: const Text('Student').small.medium(height: 1.428).center(),
         ).sized(width: 80, height: 32),
         Toggle(
           value: !isStudent,
-          style: const ButtonStyle.outline(
-            density: ButtonDensity.compact,
-          ),
+          style: const ButtonStyle.outline(density: ButtonDensity.compact),
           onChanged: (v) {
             if (isStudent) _roleService.toggleRole();
           },
-          child: const Text('Teacher').bold().center(),
+          child: const Text('Teacher').small.medium(height: 1.428).center(),
         ).sized(width: 80, height: 32),
       ],
     ).gap(4);

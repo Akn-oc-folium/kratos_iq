@@ -9,12 +9,20 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsFontsGen {
+  const $AssetsFontsGen();
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
   /// File path: assets/images/ai_ethics.png
   AssetGenImage get aiEthics =>
       const AssetGenImage('assets/images/ai_ethics.png');
+
+  /// File path: assets/images/create-flashcard-banner.png
+  AssetGenImage get createFlashcardBanner =>
+      const AssetGenImage('assets/images/create-flashcard-banner.png');
 
   /// File path: assets/images/design_fundamentals.png
   AssetGenImage get designFundamentals =>
@@ -23,9 +31,17 @@ class $AssetsImagesGen {
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
+  /// File path: assets/images/measurable-column.png
+  AssetGenImage get measurableColumn =>
+      const AssetGenImage('assets/images/measurable-column.png');
+
   /// File path: assets/images/set_theory.png
   AssetGenImage get setTheory =>
       const AssetGenImage('assets/images/set_theory.png');
+
+  /// File path: assets/images/student-qa.png
+  AssetGenImage get studentQa =>
+      const AssetGenImage('assets/images/student-qa.png');
 
   /// File path: assets/images/timetable.png
   AssetGenImage get timetable =>
@@ -36,13 +52,23 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/vector_spaces.png');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [aiEthics, designFundamentals, logo, setTheory, timetable, vectorSpaces];
+  List<AssetGenImage> get values => [
+        aiEthics,
+        createFlashcardBanner,
+        designFundamentals,
+        logo,
+        measurableColumn,
+        setTheory,
+        studentQa,
+        timetable,
+        vectorSpaces
+      ];
 }
 
 class Assets {
   const Assets._();
 
+  static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 

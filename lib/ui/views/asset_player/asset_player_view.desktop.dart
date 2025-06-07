@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:kratos_iq/ui/common/ui_helpers.dart';
 import 'package:kratos_iq/ui/views/main_layout/main_layout_view.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'package:video_player/video_player.dart';
 
@@ -21,7 +21,7 @@ class AssetPlayerViewDesktop extends StatelessWidget {
           videoArea = const Center(child: CircularProgressIndicator());
         } else if (vm.hasError) {
           videoArea = Container(
-            color: Colors.grey.shade400,
+            color: const Color(0xFFD9D9D9),
             child: const Center(
               child: Text(
                 'Video not working',
@@ -36,7 +36,7 @@ class AssetPlayerViewDesktop extends StatelessWidget {
           );
         } else {
           videoArea = Container(
-            color: Colors.grey.shade300,
+            color: const Color(0xFFD9D9D9),
           );
         }
 
@@ -59,9 +59,9 @@ class AssetPlayerViewDesktop extends StatelessWidget {
                       ),
                       vertical16,
                       Container(
-                        height: 400,
+                        height: 460,
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
+                          color: const Color(0xFFD9D9D9),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ClipRRect(
@@ -75,7 +75,7 @@ class AssetPlayerViewDesktop extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 24, vertical: 12),
                           decoration: BoxDecoration(
-                            color: Colors.grey.shade100,
+                            color: kcGray100,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Column(
@@ -85,9 +85,9 @@ class AssetPlayerViewDesktop extends StatelessWidget {
                                 allowScrubbing: true,
                                 padding: EdgeInsets.zero,
                                 colors: VideoProgressColors(
-                                  playedColor: kcLimeC16,
-                                  bufferedColor: Colors.grey.shade400,
-                                  backgroundColor: Colors.grey.shade300,
+                                  playedColor: kcLime500,
+                                  bufferedColor: kcZinc300,
+                                  backgroundColor: kcGray200,
                                 ),
                               ),
                               vertical08,
@@ -99,11 +99,11 @@ class AssetPlayerViewDesktop extends StatelessWidget {
                                   Text(
                                     '${_formatDuration(vm.videoController!.value.position)}'
                                     ' / ${_formatDuration(vm.videoController!.value.duration)}',
-                                    style: const TextStyle(color: Colors.grey),
-                                  ),
+                                  ).small.normal(color: kcGray400),
                                   Row(
                                     children: [
                                       IconButton(
+                                        variance: ButtonVariance.text,
                                         onPressed: vm.skipBackward,
                                         icon: const Icon(Icons.fast_rewind),
                                       ),
@@ -112,20 +112,21 @@ class AssetPlayerViewDesktop extends StatelessWidget {
                                         child: Container(
                                           width: 36,
                                           height: 36,
-                                          decoration: const BoxDecoration(
+                                          decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: kcLime264,
+                                            color: kcLime300,
                                           ),
                                           child: Icon(
                                             vm.videoController!.value.isPlaying
                                                 ? Icons.pause
                                                 : Icons.play_arrow,
-                                            size: 20,
+                                            size: 16,
                                             color: Colors.black,
                                           ),
                                         ),
                                       ),
                                       IconButton(
+                                        variance: ButtonVariance.text,
                                         onPressed: vm.skipForward,
                                         icon: const Icon(Icons.fast_forward),
                                       ),
@@ -135,10 +136,13 @@ class AssetPlayerViewDesktop extends StatelessWidget {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 12, vertical: 6),
                                     decoration: BoxDecoration(
-                                      color: kcLime264,
+                                      color: kcLime300,
                                       borderRadius: BorderRadius.circular(20),
                                     ),
-                                    child: const Text('Live'),
+                                    child: const Text('Live').small.semiBold(
+                                          color: kcZinc900,
+                                          height: 1.428,
+                                        ),
                                   )
                                 ],
                               ),

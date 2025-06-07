@@ -1,20 +1,30 @@
-import 'package:flutter/material.dart';
 import 'package:kratos_iq/app/app.locator.dart';
 import 'package:kratos_iq/app/app.router.dart';
+import 'package:kratos_iq/gen/assets.gen.dart';
 import 'package:kratos_iq/models/quiz_overview_model.dart';
 import 'package:kratos_iq/services/api_service.dart';
-import 'package:stacked/stacked.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
-import 'package:kratos_iq/gen/assets.gen.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class StudentHomeViewModel extends BaseViewModel {
   final _routerService = locator<RouterService>();
   final ApiService _apiService = locator<ApiService>();
+
+  final List<CheckboxState> taskSelections =
+      List<CheckboxState>.filled(3, CheckboxState.unchecked);
+
   bool isLoading = false;
   List<Map<String, dynamic>> lectures = [];
 
   List<QuizDatum> quizzes = [];
+
+  final taskLabels = [
+    'Submit case study for “Design Systems” - Due Today',
+    'Flashcards review for “Data Structures” - Due Tomorrow',
+    'Quiz: "Set Theory Basics" - Due April 15',
+  ];
 
   List<Map<String, dynamic>> flashcards = [
     {
@@ -49,6 +59,12 @@ class StudentHomeViewModel extends BaseViewModel {
     await fetchFlashCardOverview();
   }
 
+  void toggleAt(int index, CheckboxState value) {
+    if (index < 0 || index >= taskSelections.length) return;
+    taskSelections[index] = value;
+    notifyListeners();
+  }
+
   navigateToLecturePage(String lectureId) {
     _routerService.navigateToStudentDashboardView(lectureId: lectureId);
   }
@@ -62,9 +78,9 @@ class StudentHomeViewModel extends BaseViewModel {
   }
 
   final List<Color> _lectureColors = [
-    kcDarkGreenColor,
-    kcGreenColor,
-    kcLime264,
+    kcGreen700,
+    kcEmerald700,
+    kcTeal700,
   ];
 
   final List<String> assetImages = [

@@ -73,8 +73,8 @@ class FlashcardViewModel extends BaseViewModel {
   }
 
   Color getCardStatusColor(int index) {
-    if (index == currentCardIndex) return kcSkyBlue;
-    if (visitedCards.contains(index)) return kcLimeCCB;
-    return kcSkyLightBlue;
+    if (index == currentCardIndex) return kcSky200;
+    if (visitedCards.contains(index)) return kcLime100;
+    return kcSky100;
   }
 }

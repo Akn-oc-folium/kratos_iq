@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:kratos_iq/ui/common/ui_helpers.dart';
 import 'package:kratos_iq/ui/views/main_layout/main_layout_view.dart';
 import 'package:kratos_iq/ui/widgets/audio_player.dart';
 import 'package:kratos_iq/ui/widgets/lecture_card.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:stacked/stacked.dart';
 
 import 'student_dashboard_viewmodel.dart';
@@ -35,21 +35,18 @@ class StudentDashboardViewDesktop extends StatelessWidget {
                             children: [
                               GestureDetector(
                                 onTap: viewModel.goBack,
-                                child: const Row(
+                                child: Row(
                                   children: [
                                     Icon(
                                       Icons.arrow_back,
                                       size: 16,
-                                      color: kcLime30D,
+                                      color: kcLime300,
                                     ),
                                     horizontal08,
-                                    Text(
-                                      'Back',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                          color: kcLime30D),
-                                    ),
+                                    const Text('Back').small.medium(
+                                          height: 1.428,
+                                          color: kcLime300,
+                                        ),
                                   ],
                                 ),
                               ),
@@ -128,15 +125,15 @@ class StudentDashboardViewDesktop extends StatelessWidget {
                                                         height: 24,
                                                         width: 24,
                                                         decoration:
-                                                            const BoxDecoration(
-                                                          color: kcLime264,
+                                                            BoxDecoration(
+                                                          color: kcLime300,
                                                           shape:
                                                               BoxShape.circle,
                                                         ),
-                                                        child: const Icon(
+                                                        child: Icon(
                                                           Icons.chevron_right,
                                                           size: 16,
-                                                          color: kcBlack,
+                                                          color: kcZinc900,
                                                         ),
                                                       ),
                                                     ),

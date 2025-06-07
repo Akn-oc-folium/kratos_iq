@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:kratos_iq/ui/common/ui_helpers.dart';
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import 'unknown_viewmodel.dart';
@@ -10,9 +10,9 @@ class UnknownViewTablet extends ViewModelWidget<UnknownViewModel> {
 
   @override
   Widget build(BuildContext context, UnknownViewModel viewModel) {
-    return const Scaffold(
-      backgroundColor: kcBackgroundColor,
-      body: Center(
+    return Scaffold(
+      backgroundColor: kcGray100,
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

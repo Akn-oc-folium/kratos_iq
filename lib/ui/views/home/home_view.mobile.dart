@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:kratos_iq/ui/common/ui_helpers.dart';
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import 'home_viewmodel.dart';
@@ -20,9 +20,9 @@ class HomeViewMobile extends ViewModelWidget<HomeViewModel> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 verticalSpaceLarge,
-                Column(
+                const Column(
                   children: [
-                    const Text(
+                    Text(
                       'Hello, MOBILE UI!',
                       style: TextStyle(
                         fontSize: 35,
@@ -36,7 +36,7 @@ class HomeViewMobile extends ViewModelWidget<HomeViewModel> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MaterialButton(
-                      color: kcDarkGreyColor,
+                      color: kcGray900,
                       onPressed: null,
                       child: const Text(
                         'Show Dialog',
@@ -44,7 +44,7 @@ class HomeViewMobile extends ViewModelWidget<HomeViewModel> {
                       ),
                     ),
                     MaterialButton(
-                      color: kcDarkGreyColor,
+                      color: kcGray900,
                       onPressed: null,
                       child: const Text(
                         'Show Bottom Sheet',

@@ -65,7 +65,7 @@ class _AudioPlayerWithTranscriptState extends State<AudioPlayerWithTranscript> {
   }
 
   void _downloadAudio() {
-    print("Download requested for ${widget.audioUrl}");
+    debugPrint("Download requested for ${widget.audioUrl}");
   }
 
   String _formatDuration(Duration d) {
@@ -110,10 +110,10 @@ class _AudioPlayerWithTranscriptState extends State<AudioPlayerWithTranscript> {
             width: 487,
             child: SliderTheme(
               data: SliderTheme.of(context).copyWith(
-                activeTrackColor: kcLime264,
-                inactiveTrackColor: kcLime264.withOpacity(0.3),
-                thumbColor: kcLime264,
-                overlayColor: kcLime264.withOpacity(0.2),
+                activeTrackColor: kcLime500,
+                inactiveTrackColor: kcGray200,
+                thumbColor: kcLime700,
+                overlayColor: kcLime600,
                 trackHeight: 4.0,
               ),
               child: Slider(
@@ -145,9 +145,9 @@ class _AudioPlayerWithTranscriptState extends State<AudioPlayerWithTranscript> {
                     Container(
                       height: 32,
                       width: 32,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: kcLime264,
+                        color: kcLime300,
                       ),
                       child: IconButton(
                         padding: EdgeInsets.zero,

@@ -91,11 +91,12 @@ class _FlashCardState extends State<FlashCard>
       height: 428,
       width: 859,
       decoration: BoxDecoration(
-        color: kcGrey,
+        color: const Color(0xFFF9FAFB),
         borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: kcSlate200),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -119,14 +120,14 @@ class _FlashCardState extends State<FlashCard>
             Container(
               height: 33,
               width: double.infinity,
-              color: kcLime264,
+              color: kcLime300,
               alignment: Alignment.center,
-              child: const Text(
+              child: Text(
                 'Click card to reveal answer',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
-                  color: kcLime314,
+                  color: kcLime900,
                 ),
               ),
             ),

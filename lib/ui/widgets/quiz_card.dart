@@ -29,11 +29,11 @@ class QuizCard extends ViewModelWidget<QuizViewModel> {
       height: 420,
       padding: const EdgeInsets.all(24.0),
       decoration: BoxDecoration(
-        color: kcGrey,
+        color: kcGray50,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -85,15 +85,15 @@ class QuizOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color borderColor = Colors.grey;
-    Color backgroundColor = Colors.white;
+    Color borderColor = kcGray200;
+    Color backgroundColor = kcWhite;
 
     if (isSelected && isCorrect) {
-      borderColor = kcGreenCorrect;
-      backgroundColor = kcGreenCorrect.withOpacity(0.1);
+      borderColor = kcGreen500;
+      backgroundColor = kcLime100;
     } else if (isSelected && !isCorrect) {
-      borderColor = kcRedError;
-      backgroundColor = kcRedError;
+      borderColor = kcRed300;
+      backgroundColor = kcRed100;
     }
 
     return GestureDetector(

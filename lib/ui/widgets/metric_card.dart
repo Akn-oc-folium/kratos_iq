@@ -29,7 +29,7 @@ class MetricCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: Colors.black
-              .withOpacity(0.3), // Optional: dark overlay for contrast
+              .withValues(alpha: 0.3),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

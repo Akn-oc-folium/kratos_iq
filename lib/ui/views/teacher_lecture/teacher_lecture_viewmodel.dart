@@ -8,7 +8,7 @@ class TeacherLectureViewModel extends BaseViewModel {
 
   final _routerService = locator<RouterService>();
 
-  TeacherLectureViewModel(this.lectureNumber) {}
+  TeacherLectureViewModel(this.lectureNumber);
 
   List<Map<String, dynamic>> teacherMetric = [
     {

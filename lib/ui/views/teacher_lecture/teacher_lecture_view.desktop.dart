@@ -35,20 +35,21 @@ class TeacherLectureViewDesktop extends StatelessWidget {
                             children: [
                               GestureDetector(
                                 onTap: viewModel.goBack,
-                                child: const Row(
+                                child: Row(
                                   children: [
                                     Icon(
                                       Icons.arrow_back,
                                       size: 16,
-                                      color: kcLime30D,
+                                      color: kcLime300,
                                     ),
                                     horizontal08,
                                     Text(
                                       'Back',
                                       style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                          color: kcLime30D),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        color: kcLime300,
+                                      ),
                                     ),
                                   ],
                                 ),

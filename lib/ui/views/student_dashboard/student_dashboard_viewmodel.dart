@@ -8,38 +8,38 @@ class StudentDashboardViewModel extends BaseViewModel {
 
   final _routerService = locator<RouterService>();
 
-  StudentDashboardViewModel(this.lectureId) {}
+  StudentDashboardViewModel(this.lectureId);
 
   List<Map<String, dynamic>> lectures = [
     {
       'lectureNumber': 1,
       'lecture': 'Lecture 1',
       'date': 'Apr 10',
-      'color': kcDarkGreenColor,
+      'color': kcGreen700,
     },
     {
       'lectureNumber': 2,
       'lecture': 'Lecture 2',
       'date': 'Apr 8',
-      'color': kcGreenColor,
+      'color': kcEmerald700,
     },
     {
       'lectureNumber': 3,
       'lecture': 'Lecture 3',
       'date': 'Apr 2',
-      'color': kcLime264,
+      'color': kcTeal700,
     },
     {
-      'lectureNumber': 3,
+      'lectureNumber': 4,
       'lecture': 'Lecture 3',
-      'date': 'Apr 2',
-      'color': kcLime264,
+      'date': 'Mar 31',
+      'color': kcGreen700,
     },
     {
-      'lectureNumber': 3,
+      'lectureNumber': 5,
       'lecture': 'Lecture 3',
-      'date': 'Apr 2',
-      'color': kcLime264,
+      'date': 'Mar 28',
+      'color': kcEmerald700,
     },
   ];
 

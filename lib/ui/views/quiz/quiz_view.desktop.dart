@@ -30,20 +30,21 @@ class QuizViewDesktop extends StatelessWidget {
                             children: [
                               GestureDetector(
                                 onTap: viewModel.goBack,
-                                child: const Row(
+                                child: Row(
                                   children: [
                                     Icon(
                                       Icons.arrow_back,
                                       size: 16,
-                                      color: kcLime30D,
+                                      color: kcLime600,
                                     ),
                                     horizontal08,
                                     Text(
                                       'Back',
                                       style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                          color: kcLime30D),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        color: kcLime600,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -75,19 +76,16 @@ class QuizViewDesktop extends StatelessWidget {
                                       const EdgeInsets.symmetric(vertical: 6.0),
                                   child: LinearProgressIndicator(
                                     value: viewModel.progress,
-                                    backgroundColor: kcVeryLightGrey,
-                                    color: kcLimeC16,
+                                    backgroundColor: kcGray200,
+                                    color: kcLime500,
                                     borderRadius: BorderRadius.circular(40),
                                   ),
                                 ),
                               ),
-                              vertical08,
-                              vertical04,
-                              const Divider(
-                                color: kcZinc,
+                              Divider(
+                                color: kcBlack.withValues(alpha: 0.1),
+                                height: 40,
                               ),
-                              vertical16,
-                              vertical04,
                               if (viewModel.isLoading)
                                 const SizedBox()
                               else if (viewModel.isFinished)
@@ -121,11 +119,11 @@ class QuizViewDesktop extends StatelessWidget {
                                   ),
                                   horizontal16,
                                   horizontal08,
-                                  ElevatedButton(
+                                  FilledButton(
                                     onPressed: viewModel.nextQuestion,
                                     style: ButtonStyle(
                                       backgroundColor:
-                                          MaterialStateProperty.all(kcLime264),
+                                          WidgetStateProperty.all(kcLime300),
                                     ),
                                     child: viewModel.isFinished
                                         ? const Text(
@@ -181,11 +179,11 @@ class QuizViewDesktop extends StatelessWidget {
                                                             .getQuestionStatusIcon(
                                                                 index) ==
                                                         Icons.check_circle
-                                                    ? kcLimeCCB
+                                                    ? kcLime600
                                                     : viewModel.getQuestionStatusIcon(
                                                                 index) ==
                                                             Icons.cancel
-                                                        ? kcRedError
+                                                        ? kcRed400
                                                         : Colors.grey,
                                               ),
                                               horizontal08,
@@ -213,7 +211,7 @@ Widget _buildResultScreen(QuizViewModel viewModel) {
     height: 420,
     padding: const EdgeInsets.all(32),
     decoration: BoxDecoration(
-      color: kcGrey,
+      color: const Color(0xFFF9FAFB),
       borderRadius: BorderRadius.circular(12),
     ),
     child: Column(
