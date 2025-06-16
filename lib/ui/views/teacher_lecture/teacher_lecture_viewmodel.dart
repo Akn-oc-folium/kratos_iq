@@ -1,14 +1,28 @@
+import 'package:flutter/foundation.dart';
 import 'package:kratos_iq/app/app.locator.dart';
 import 'package:kratos_iq/gen/assets.gen.dart';
+import 'package:kratos_iq/models/lecture_detail.model.dart';
+import 'package:kratos_iq/services/api_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class TeacherLectureViewModel extends BaseViewModel {
-  final int lectureNumber;
-
+class TeacherDashboardViewModel extends BaseViewModel {
   final _routerService = locator<RouterService>();
+  final _apiService = locator<ApiService>();
 
-  TeacherLectureViewModel(this.lectureNumber);
+  TeacherDashboardViewModel(this.lectureNumber, this.lectureId);
+
+  final int lectureNumber;
+  final String lectureId;
+
+  LectureInfo? _lectureDetails;
+  LectureInfo? get lectureDetails => _lectureDetails;
+
+  String _audioUrl = '';
+  String get audioUrl => _audioUrl;
+
+  String _transcript = '';
+  String get transcript => _transcript;
 
   List<Map<String, dynamic>> teacherMetric = [
     {
@@ -43,6 +57,22 @@ class TeacherLectureViewModel extends BaseViewModel {
     "Montes neque vel dis fermentum mauris enim ultrices. Arcu sem eu amet in cursus in. Et ante dictum nisi dolor. Molestie neque hendrerit sit vestibulum pretium nisi tellus enim. Et tempor eu quis ac. Tortor egestas dis sit leo mauris sit adipiscing dignissim. Nibh vitae vitae sed magna magna vitae sem. Orci habitasse in faucibus quam quis.",
     "Montes neque vel dis fermentum mauris enim ultrices. Arcu sem eu amet in cursus in. Et ante dictum nisi dolor. Molestie neque hendrerit sit vestibulum pretium nisi tellus enim. Et tempor eu quis ac. Tortor egestas dis sit leo mauris sit adipiscing dignissim. Nibh vitae vitae sed magna magna vitae sem. Orci habitasse in faucibus quam quis."
   ];
+
+  Future<void> init() async {
+    setBusy(true);
+    await getLectureDetails();
+    setBusy(false);
+  }
+
+  Future<void> getLectureDetails() async {
+    try {
+      _lectureDetails = await _apiService.getLectureInfo(lectureId);
+      _audioUrl = _lectureDetails?.data?.presignedDownloadUrl ?? '';
+      _transcript = _lectureDetails?.data?.transcript ?? '';
+    } catch (e) {
+      debugPrint("$e");
+    }
+  }
 
   void goBack() {
     _routerService.back();

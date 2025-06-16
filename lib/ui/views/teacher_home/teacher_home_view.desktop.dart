@@ -2,6 +2,7 @@ import 'package:kratos_iq/gen/assets.gen.dart';
 import 'package:kratos_iq/ui/common/ui_helpers.dart';
 import 'package:kratos_iq/ui/views/main_layout/main_layout_view.dart';
 import 'package:kratos_iq/ui/widgets/custom_calendar.dart';
+import 'package:kratos_iq/ui/widgets/hover_scale.dart';
 import 'package:kratos_iq/ui/widgets/lecture_card.dart';
 import 'package:kratos_iq/ui/widgets/metric_card.dart';
 import 'package:kratos_iq/ui/widgets/upcoming_lecture_card.dart';
@@ -17,6 +18,7 @@ class TeacherHomeViewDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<TeacherHomeViewModel>.reactive(
       viewModelBuilder: () => TeacherHomeViewModel(),
+      onViewModelReady: (viewModel) => viewModel.init(),
       builder: (context, viewModel, child) => MainLayoutView(
         body: viewModel.isBusy
             ? const Center(
@@ -106,48 +108,48 @@ class TeacherHomeViewDesktop extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text('Class 10 Lectures from April, 14')
-                                    .base
-                                    .bold,
-                                vertical08,
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    children: [
-                                      ...viewModel.lectures
-                                          .map(
-                                            (entry) => Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 16.0),
-                                              child: Row(
-                                                children: [
-                                                  LectureCard(
-                                                    onTap: () => viewModel
-                                                        .navigateToLecturePage(
-                                                            entry[
-                                                                'lectureNumber']),
-                                                    cardColor: entry['color'],
-                                                    lectureNumber:
-                                                        entry['lecture'],
-                                                    date: entry['date'],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                                          .toList(),
-                                    ],
+                            child: SingleChildScrollView(
+                              padding: const EdgeInsets.only(
+                                top: 16.0,
+                                bottom: 40.0,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text('Class 10 Lectures from April, 14')
+                                      .base
+                                      .bold,
+                                  vertical08,
+                                  SizedBox(
+                                    height: 150,
+                                    child: ListView.separated(
+                                      scrollDirection: Axis.horizontal,
+                                      padding: const EdgeInsets.all(16.0),
+                                      itemCount: viewModel.lectures.length,
+                                      separatorBuilder: (_, __) =>
+                                          const SizedBox(width: 16),
+                                      itemBuilder: (context, index) {
+                                        final entry = viewModel.lectures[index];
+                                        return HoverScale(
+                                          child: LectureCard.teacher(
+                                            onTap: () =>
+                                                viewModel.navigateToLecturePage(
+                                                    entry['lectureNumber'],
+                                                    entry['lectureId']),
+                                            title: entry['lecture'],
+                                            subTitle: entry['date'],
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   ),
-                                ),
-                                vertical16,
-                                vertical08,
-                                const Text('Weekly Timetable').base.bold,
-                                vertical08,
-                                Image.asset(Assets.images.timetable.path),
-                              ],
+                                  vertical16,
+                                  vertical08,
+                                  const Text('Weekly Timetable').base.bold,
+                                  vertical08,
+                                  Image.asset(Assets.images.timetable.path),
+                                ],
+                              ),
                             ),
                           ),
                           const SizedBox(

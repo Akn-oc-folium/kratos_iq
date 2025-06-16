@@ -17,7 +17,8 @@ class AppConstants {
   static const String lectureOverviewEndpoint = '/fetch-lectures-overview';
   static const String quizOverviewEndpoint = '/fetch-quizzes-overview';
   static const String quizSetEndpoint = '/fetch-quiz';
-  static const String flashCardOverviewEndpoint = '/fetch-flash-cards-overview';
-  static const String flashCardEndpoint = '/fetch-flash-cards';
+  static const String flashCardsOverviewEndpoint =
+      '/fetch-flash-cards-overview';
+  static const String flashCardsByLectureEndpoint = '/fetch-flash-cards';
   static const String lectureDetailEndpoint = '/fetch-lecture-info';
 }

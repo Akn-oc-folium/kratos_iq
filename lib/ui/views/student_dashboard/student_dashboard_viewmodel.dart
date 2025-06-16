@@ -1,14 +1,31 @@
+import 'dart:ui';
+
+import 'package:flutter/foundation.dart';
 import 'package:kratos_iq/app/app.locator.dart';
+import 'package:kratos_iq/gen/assets.gen.dart';
+import 'package:kratos_iq/models/lecture_detail.model.dart';
+import 'package:kratos_iq/services/api_service.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:url_launcher_web/url_launcher_web.dart';
 
 class StudentDashboardViewModel extends BaseViewModel {
-  final String lectureId;
-
   final _routerService = locator<RouterService>();
+  final _apiService = locator<ApiService>();
 
   StudentDashboardViewModel(this.lectureId);
+
+  final String lectureId;
+
+  LectureInfo? _lectureDetails;
+  LectureInfo? get lectureDetails => _lectureDetails;
+
+  String _audioUrl = '';
+  String get audioUrl => _audioUrl;
+
+  String _transcript = '';
+  String get transcript => _transcript;
 
   List<Map<String, dynamic>> lectures = [
     {
@@ -53,6 +70,44 @@ class StudentDashboardViewModel extends BaseViewModel {
     "Montes neque vel dis fermentum mauris enim ultrices. Arcu sem eu amet in cursus in. Et ante dictum nisi dolor. Molestie neque hendrerit sit vestibulum pretium nisi tellus enim. Et tempor eu quis ac. Tortor egestas dis sit leo mauris sit adipiscing dignissim. Nibh vitae vitae sed magna magna vitae sem. Orci habitasse in faucibus quam quis.",
     "Montes neque vel dis fermentum mauris enim ultrices. Arcu sem eu amet in cursus in. Et ante dictum nisi dolor. Molestie neque hendrerit sit vestibulum pretium nisi tellus enim. Et tempor eu quis ac. Tortor egestas dis sit leo mauris sit adipiscing dignissim. Nibh vitae vitae sed magna magna vitae sem. Orci habitasse in faucibus quam quis."
   ];
+
+  final List<Color> lectureColors = [
+    kcGreen700,
+    kcEmerald700,
+    kcTeal700,
+  ];
+
+  final List<String> assetImages = [
+    Assets.images.designFundamentals.path,
+    Assets.images.aiEthics.path,
+    Assets.images.setTheory.path,
+    Assets.images.vectorSpaces.path,
+  ];
+  
+  Future<void> init() async {
+    setBusy(true);
+    await getLectureDetails();
+    setBusy(false);
+  }
+
+  Future<void> getLectureDetails() async {
+    try {
+      _lectureDetails = await _apiService.getLectureInfo(lectureId);
+      _audioUrl = _lectureDetails?.data?.presignedDownloadUrl ?? '';
+      _transcript = _lectureDetails?.data?.transcript ?? '';
+      notifyListeners();
+    } catch (e) {
+      debugPrint("$e");
+    }
+  }
+
+  Future<void> openSupplementaryLink(String? url) async {
+    if (!await UrlLauncherPlugin().launch(
+      url!,
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
 
   void goBack() {
     _routerService.back();

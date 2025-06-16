@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:kratos_iq/models/flashcard_overview_model.dart';
+import 'package:kratos_iq/models/flashcards_overview_model.dart';
+import 'package:kratos_iq/models/flashcards_by_lecture_model.dart';
 import 'package:kratos_iq/models/lecture_detail.model.dart';
 import 'package:kratos_iq/models/lecture_overview_model.dart';
 import 'package:kratos_iq/models/quiz_overview_model.dart';
@@ -53,28 +54,6 @@ class ApiService {
     }
   }
 
-  Future<FlashCardOverview> getFlashCardOverview() async {
-    try {
-      final Response<dynamic> response = await apiClient.get(
-        AppConstants.flashCardOverviewEndpoint,
-      );
-      if (response.statusCode == 200) {
-        return FlashCardOverview.fromJson(
-            response.data as Map<String, dynamic>);
-      } else {
-        throw Exception('Failed to fetch the quizzes!');
-      }
-    } catch (e) {
-      String errorMessage;
-      if (e is DioException) {
-        errorMessage = DioExceptions.fromDioError(e).toString();
-      } else {
-        errorMessage = 'An unexpected error occurred: ${e.toString()}';
-      }
-      throw errorMessage;
-    }
-  }
-
   Future<QuizSet> getQuizSet(String lectureId) async {
     try {
       final Response<dynamic> response = await apiClient.get(
@@ -99,19 +78,16 @@ class ApiService {
     }
   }
 
-  Future<FlashCardOverview> getFlashCards(String lectureId) async {
+  Future<FlashcardsOverviewModel> getFlashcardsOverview() async {
     try {
       final Response<dynamic> response = await apiClient.get(
-        AppConstants.flashCardOverviewEndpoint,
-        queryParameters: {
-          'lecture_id': lectureId,
-        },
+        AppConstants.flashCardsOverviewEndpoint,
       );
       if (response.statusCode == 200) {
-        return FlashCardOverview.fromJson(
+        return FlashcardsOverviewModel.fromJson(
             response.data as Map<String, dynamic>);
       } else {
-        throw Exception('Failed to fetch the quizzes!');
+        throw Exception('Failed to fetch the flash cards!');
       }
     } catch (e) {
       String errorMessage;
@@ -124,22 +100,45 @@ class ApiService {
     }
   }
 
-  Future<String> getLectureVideoUrl(String lectureId) async {
+  Future<FlashcardsByLectureModel> getFlashcardsByLecture(
+      String lectureId) async {
     try {
       final Response<dynamic> response = await apiClient.get(
-        '${AppConstants.lectureDetailEndpoint}/$lectureId',
+        AppConstants.flashCardsByLectureEndpoint,
+        queryParameters: {
+          'lecture_id': lectureId,
+        },
+      );
+      if (response.statusCode == 200) {
+        return FlashcardsByLectureModel.fromJson(
+            response.data as Map<String, dynamic>);
+      } else {
+        throw Exception('Failed to fetch lecture corresponsing flash cards!');
+      }
+    } catch (e) {
+      String errorMessage;
+      if (e is DioException) {
+        errorMessage = DioExceptions.fromDioError(e).toString();
+      } else {
+        errorMessage = 'An unexpected error occurred: ${e.toString()}';
+      }
+      throw errorMessage;
+    }
+  }
+
+  Future<LectureInfo> getLectureInfo(String lectureId) async {
+    try {
+      final Response<dynamic> response = await apiClient.get(
+        AppConstants.lectureDetailEndpoint,
+        queryParameters: {
+          'lecture_id': lectureId,
+        },
       );
 
-      if (response.statusCode == 200 && response.data != null) {
-        final lectureDetail = LectureDetail.fromJson(
+      if (response.statusCode == 200) {
+        return LectureInfo.fromJson(
           response.data as Map<String, dynamic>,
         );
-
-        final url = lectureDetail.data.videoDownloadUrl;
-        if (url.isEmpty) {
-          throw Exception('No video URL returned for lecture $lectureId');
-        }
-        return url;
       } else {
         throw Exception(
           'Failed to fetch lecture info (status ${response.statusCode})',

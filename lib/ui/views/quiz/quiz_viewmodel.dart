@@ -15,7 +15,6 @@ class QuizViewModel extends BaseViewModel {
   Set<int> answeredQuestions = {};
   Map<int, int?> selectedOptions = {};
   Map<int, bool> hasNavigated = {};
-  bool isLoading = true;
   bool isFinished = false;
 
   QuizViewModel(this.lectureId) {
@@ -23,9 +22,7 @@ class QuizViewModel extends BaseViewModel {
   }
 
   Future<void> fetchQuestions(String lectureId) async {
-    isLoading = true;
-    notifyListeners();
-
+    setBusy(true);
     try {
       final response = await _apiService.getQuizSet(lectureId);
 
@@ -38,8 +35,7 @@ class QuizViewModel extends BaseViewModel {
     } catch (e) {
       debugPrint('Error fetching quiz set: $e');
     } finally {
-      isLoading = false;
-      notifyListeners();
+      setBusy(false);
     }
   }
 

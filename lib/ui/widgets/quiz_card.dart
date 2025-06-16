@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:kratos_iq/ui/common/ui_helpers.dart';
 import 'package:kratos_iq/ui/views/quiz/quiz_viewmodel.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:stacked/stacked.dart';
 
 class QuizCard extends ViewModelWidget<QuizViewModel> {
@@ -26,41 +26,35 @@ class QuizCard extends ViewModelWidget<QuizViewModel> {
 
     return Container(
       width: 907,
-      height: 420,
       padding: const EdgeInsets.all(24.0),
       decoration: BoxDecoration(
         color: kcGray50,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             questionNumber,
-            style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
-          ),
+          ).base.normal(color: kcGray400, height: 1.5),
           vertical08,
           Text(
             question,
-            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-          ),
+          ).h4(height: 1.55, color: const Color(0xFF2C2C2C)),
           vertical16,
-          ...List.generate(options.length, (index) {
-            return QuizOption(
-              optionText: options[index],
-              index: index,
-              isSelected: selectedOption == index,
-              isCorrect: selectedOption != null && index == correctIndex,
-              onTap: () => viewModel.selectOption(questionIndex, index),
-            );
-          }),
+          vertical08,
+          ...List.generate(
+            options.length,
+            (index) {
+              return QuizOption(
+                optionText: options[index],
+                index: index,
+                isSelected: selectedOption == index,
+                isCorrect: selectedOption != null && index == correctIndex,
+                onTap: () => viewModel.selectOption(questionIndex, index),
+              );
+            },
+          ),
         ],
       ),
     );
@@ -85,7 +79,11 @@ class QuizOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color borderColor = kcGray200;
+    Color borderColor = isSelected
+        ? isCorrect
+            ? kcGreen500
+            : kcRed300
+        : kcGray200;
     Color backgroundColor = kcWhite;
 
     if (isSelected && isCorrect) {
@@ -99,27 +97,25 @@ class QuizOption extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 6.0),
-        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+        margin: const EdgeInsets.only(bottom: 12.0),
+        padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           color: backgroundColor,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: borderColor, width: 1.5),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: borderColor, width: 1),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               "${index + 1}. $optionText",
-              style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
-            ),
+            ).textSmall(color: kcBlack),
             Icon(
               isSelected
                   ? (Icons.radio_button_checked)
                   : Icons.radio_button_unchecked,
-              color: isSelected
-                  ? (isCorrect ? Colors.green : Colors.red)
-                  : Colors.grey,
+              color:
+                  isSelected ? (isCorrect ? kcGreen400 : kcRed400) : kcSlate200,
             ),
           ],
         ),

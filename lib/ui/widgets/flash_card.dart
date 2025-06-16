@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:kratos_iq/ui/common/ui_helpers.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 class FlashCard extends StatefulWidget {
   final String title;
@@ -89,31 +89,23 @@ class _FlashCardState extends State<FlashCard>
   Widget _buildCardContent(String text, bool isBack) {
     return Container(
       height: 428,
-      width: 859,
+      width: 860,
       decoration: BoxDecoration(
         color: const Color(0xFFF9FAFB),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: kcSlate200),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
       ),
       child: Column(
         children: [
           Expanded(
-            child: Center(
+            child: Container(
+              padding: const EdgeInsets.all(62),
+              alignment: Alignment.center,
               child: Text(
                 text,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 24,
-                  color: kcBlack,
-                ),
-              ),
+              ).x2Large.semiBold(
+                    color: const Color(0xFF2C2C2C),
+                  ),
             ),
           ),
           if (isBack == false)
@@ -122,14 +114,12 @@ class _FlashCardState extends State<FlashCard>
               width: double.infinity,
               color: kcLime300,
               alignment: Alignment.center,
-              child: Text(
+              child: const Text(
                 'Click card to reveal answer',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14,
-                  color: kcLime900,
-                ),
-              ),
+              ).small.semiBold(
+                    color: kcLime900,
+                    height: 1.428,
+                  ),
             ),
           vertical08,
           vertical04,

@@ -15,7 +15,6 @@ class StudentHomeViewModel extends BaseViewModel {
   final List<CheckboxState> taskSelections =
       List<CheckboxState>.filled(3, CheckboxState.unchecked);
 
-  bool isLoading = false;
   List<Map<String, dynamic>> lectures = [];
 
   List<QuizDatum> quizzes = [];
@@ -54,9 +53,11 @@ class StudentHomeViewModel extends BaseViewModel {
   ];
 
   Future<void> init() async {
+    setBusy(true);
     await fetchLectureOverview();
     await fetchQuizOverview();
     await fetchFlashCardOverview();
+    setBusy(false);
   }
 
   void toggleAt(int index, CheckboxState value) {
@@ -109,8 +110,6 @@ class StudentHomeViewModel extends BaseViewModel {
   }
 
   Future<void> fetchLectureOverview() async {
-    isLoading = true;
-    notifyListeners();
     try {
       final response = await _apiService.getLectureOverview();
       final lectureOverview = response;
@@ -127,54 +126,45 @@ class StudentHomeViewModel extends BaseViewModel {
           'color': _lectureColors[index % _lectureColors.length],
         };
       }).toList();
-      notifyListeners();
     } catch (e) {
       debugPrint('Error fetching lecture overview: $e');
-    } finally {
-      isLoading = false;
-      notifyListeners();
     }
   }
 
   Future<void> fetchQuizOverview() async {
-    isLoading = true;
-    notifyListeners();
     try {
       final response = await _apiService.getQuizOverview();
       quizzes = response.data;
-      notifyListeners();
     } catch (e) {
       debugPrint('Error fetching quiz overview: $e');
-    } finally {
-      isLoading = false;
-      notifyListeners();
     }
   }
 
   Future<void> fetchFlashCardOverview() async {
-    isLoading = true;
-    notifyListeners();
     try {
-      final response = await _apiService.getFlashCardOverview();
+      final response = await _apiService.getFlashcardsOverview();
 
-      flashcards = response.data.asMap().entries.map((entry) {
-        final index = entry.key;
-        final item = entry.value;
-
-        return {
-          'lectureNumber': item.lectureNumber,
-          'lectureId': item.lectureId,
-          'label': item.label,
-          'content': item.content,
-          'assetImage': assetImages[index % assetImages.length],
-        };
-      }).toList();
-      notifyListeners();
+      flashcards = response.data!
+          .asMap()
+          .entries
+          .map((entry) {
+            final index = entry.key;
+            final item = entry.value;
+            if (entry.value.content!.isNotEmpty) {
+              return {
+                'lectureNumber': item.lectureNumber,
+                'lectureId': item.lectureId,
+                'label': item.label,
+                'content': item.content,
+                'assetImage': assetImages[index % assetImages.length],
+              };
+            }
+            return <String, dynamic>{};
+          })
+          .where((map) => map.isNotEmpty)
+          .toList();
     } catch (e) {
       debugPrint('Error fetching flashcard overview: $e');
-    } finally {
-      isLoading = false;
-      notifyListeners();
     }
   }
 }

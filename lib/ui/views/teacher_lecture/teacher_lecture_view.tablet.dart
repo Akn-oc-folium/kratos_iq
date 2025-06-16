@@ -3,12 +3,12 @@ import 'package:stacked/stacked.dart';
 
 import 'teacher_lecture_viewmodel.dart';
 
-class TeacherLectureViewTablet
-    extends ViewModelWidget<TeacherLectureViewModel> {
-  const TeacherLectureViewTablet({super.key});
+class TeacherDashboardViewTablet
+    extends ViewModelWidget<TeacherDashboardViewModel> {
+  const TeacherDashboardViewTablet({super.key});
 
   @override
-  Widget build(BuildContext context, TeacherLectureViewModel viewModel) {
+  Widget build(BuildContext context, TeacherDashboardViewModel viewModel) {
     return const Scaffold(
       body: Center(
         child: Text(

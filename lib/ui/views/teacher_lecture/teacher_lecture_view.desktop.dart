@@ -1,32 +1,45 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as material;
 import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:kratos_iq/ui/common/ui_helpers.dart';
 import 'package:kratos_iq/ui/views/main_layout/main_layout_view.dart';
 import 'package:kratos_iq/ui/widgets/audio_player.dart';
+import 'package:kratos_iq/ui/widgets/date_formatter.dart';
 import 'package:kratos_iq/ui/widgets/metric_card.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:stacked/stacked.dart';
 
 import 'teacher_lecture_viewmodel.dart';
 
-class TeacherLectureViewDesktop extends StatelessWidget {
+class TeacherDashboardViewDesktop extends StatelessWidget {
   final int lectureNumber;
-  const TeacherLectureViewDesktop({super.key, required this.lectureNumber});
+  final String lectureId;
+  const TeacherDashboardViewDesktop(
+      {super.key, required this.lectureNumber, required this.lectureId});
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<TeacherLectureViewModel>.reactive(
-        viewModelBuilder: () => TeacherLectureViewModel(lectureNumber),
-        builder: (context, viewModel, child) => MainLayoutView(
-                body: SingleChildScrollView(
-              child: Column(
+    return ViewModelBuilder<TeacherDashboardViewModel>.reactive(
+      viewModelBuilder: () =>
+          TeacherDashboardViewModel(lectureNumber, lectureId),
+      onViewModelReady: (viewModel) => viewModel.init(),
+      builder: (context, viewModel, child) => MainLayoutView(
+        body: viewModel.isBusy
+            ? Center(
+                child: material.CircularProgressIndicator(
+                  color: kcLime300,
+                  strokeWidth: 3,
+                ),
+              )
+            : Column(
                 children: [
                   Container(
-                    height: 200,
                     width: double.infinity,
-                    color: kcWhite,
+                    color: kcGray100,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 64.0, vertical: 30.0),
+                        horizontal: 64.0,
+                        vertical: 30.0,
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -40,65 +53,59 @@ class TeacherLectureViewDesktop extends StatelessWidget {
                                     Icon(
                                       Icons.arrow_back,
                                       size: 16,
-                                      color: kcLime300,
+                                      color: kcLime600,
                                     ),
                                     horizontal08,
-                                    Text(
+                                    const Text(
                                       'Back',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500,
-                                        color: kcLime300,
-                                      ),
-                                    ),
+                                    ).small.medium(
+                                          height: 1.428,
+                                          color: kcLime600,
+                                        ),
                                   ],
                                 ),
                               ),
                               vertical32,
-                              const SizedBox(
+                              SizedBox(
                                 height: 36,
-                                width: 319,
+                                width: 320,
                                 child: Text(
-                                  'Intro to Linear Algebra',
-                                  style: TextStyle(
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.0,
-                                    letterSpacing: -0.75,
-                                  ),
+                                  viewModel.lectureDetails?.data?.title ?? '',
+                                ).h3(
+                                  letterSpacing: -0.75,
+                                  height: 1.2,
+                                  color: kcBlack,
                                 ),
                               ),
                               vertical08,
                               vertical04,
-                              const SizedBox(
+                              SizedBox(
                                 height: 36,
-                                width: 319,
+                                width: 320,
                                 child: Text(
-                                  'May 13th, 2025',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.0,
-                                    letterSpacing: -0.5,
+                                  DateFormatter().formatWithOrdinal(
+                                    viewModel.lectureDetails?.data?.lectureDate
+                                            ?.toString() ??
+                                        '',
                                   ),
-                                ),
+                                ).h4.xLarge(
+                                      color: kcBlack,
+                                      height: 1.4,
+                                      letterSpacing: -0.5,
+                                    ),
                               ),
                             ],
                           ),
                           const SizedBox(
-                            width: 39,
+                            width: 40,
                           ),
                           Expanded(
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 const Text(
                                   'Lecture Impact',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
+                                ).base.bold(color: kcBlack, height: 1.6),
                                 vertical08,
                                 SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
@@ -133,136 +140,90 @@ class TeacherLectureViewDesktop extends StatelessWidget {
                     ),
                   ),
                   Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 64.0,
+                      vertical: 24.0,
+                    ),
                     decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(12),
-                            topRight: Radius.circular(12))),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 64.0, vertical: 24.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: SizedBox(
-                              width: 775,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'Overview',
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      Icon(
-                                        Icons.more_horiz,
-                                        size: 24,
-                                      )
-                                    ],
-                                  ),
-                                  vertical08,
-                                  vertical04,
-                                  Text(
-                                    viewModel.overViewContext,
-                                    style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  vertical16,
-                                  vertical04,
-                                  const Text(
-                                    'Notes',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  vertical08,
-                                  vertical04,
-                                  SingleChildScrollView(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children:
-                                            viewModel.notesContext.map((text) {
-                                          return Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 8.0),
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                const Text('• ',
-                                                    style: TextStyle(
-                                                        fontSize: 14)),
-                                                Expanded(
-                                                  child: Text(
-                                                    text,
-                                                    style: const TextStyle(
-                                                        fontSize: 14),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        }).toList(),
-                                      ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        topRight: Radius.circular(12),
+                      ),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            width: 775,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'Topics',
+                                ).xLarge.h4(
+                                      color: kcBlack,
+                                      letterSpacing: -0.5,
+                                      height: 1.4,
                                     ),
-                                  )
-                                ],
-                              ),
+                                vertical08,
+                                vertical04,
+                                Text(
+                                  viewModel.lectureDetails?.data?.topics
+                                          .toString() ??
+                                      '',
+                                ).small.medium(
+                                      color: kcSlate700,
+                                      height: 1.714,
+                                    ),
+                                vertical16,
+                                vertical04,
+                                const Text('Summary').xLarge.h4(
+                                      color: kcBlack,
+                                      letterSpacing: -0.5,
+                                      height: 1.4,
+                                    ),
+                                vertical08,
+                                vertical04,
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 8.0),
+                                  child: Text(
+                                    viewModel.lectureDetails?.data?.summary
+                                            .toString() ??
+                                        '',
+                                  ).small.medium(
+                                        color: kcSlate700,
+                                        height: 1.714,
+                                      ),
+                                )
+                              ],
                             ),
                           ),
-                          const SizedBox(
-                            width: 50,
-                          ),
-                          const Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Transcript',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
+                        ),
+                        const SizedBox(
+                          width: 50,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('Transcript').xLarge.h4(
+                                  color: kcBlack,
+                                  letterSpacing: -0.5,
+                                  height: 1.4,
                                 ),
-                              ),
-                              vertical08,
-                              AudioPlayerWithTranscript(
-                                audioUrl:
-                                    "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                                transcript: [
-                                  {
-                                    'timestamp': 0,
-                                    'text': 'Welcome to Linear Algebra!'
-                                  },
-                                  {
-                                    'timestamp': 5,
-                                    'text':
-                                        'In this session, we’ll explore matrices.'
-                                  },
-                                  {
-                                    'timestamp': 12,
-                                    'text': 'Matrix multiplication is key.'
-                                  },
-                                  {
-                                    'timestamp': 20,
-                                    'text': 'Let’s jump into an example.'
-                                  },
-                                ],
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
+                            vertical08,
+                            AudioPlayerWithTranscript(
+                              audioUrl: viewModel.audioUrl.toString(),
+                              transcript: viewModel.transcript.toString(),
+                            )
+                          ],
+                        ),
+                      ],
                     ),
                   )
                 ],
               ),
-            )));
+      ),
+    );
   }
 }

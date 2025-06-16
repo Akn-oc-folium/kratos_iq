@@ -20,6 +20,10 @@ class $AssetsImagesGen {
   AssetGenImage get aiEthics =>
       const AssetGenImage('assets/images/ai_ethics.png');
 
+  /// File path: assets/images/celebration.png
+  AssetGenImage get celebration =>
+      const AssetGenImage('assets/images/celebration.png');
+
   /// File path: assets/images/create-flashcard-banner.png
   AssetGenImage get createFlashcardBanner =>
       const AssetGenImage('assets/images/create-flashcard-banner.png');
@@ -54,6 +58,7 @@ class $AssetsImagesGen {
   /// List of all assets
   List<AssetGenImage> get values => [
         aiEthics,
+        celebration,
         createFlashcardBanner,
         designFundamentals,
         logo,

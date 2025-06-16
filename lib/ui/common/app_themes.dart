@@ -111,7 +111,10 @@ class AppThemes {
           fontSize: 14,
           fontWeight: FontWeight.w600,
         ),
-        lead: const TextStyle(fontFamily: FontFamily.inter, fontSize: 20),
+        lead: const TextStyle(
+          fontFamily: FontFamily.inter,
+          fontSize: 20,
+        ),
         textLarge: const TextStyle(
           fontFamily: FontFamily.inter,
           fontSize: 20,

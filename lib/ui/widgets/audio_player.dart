@@ -1,11 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as material;
 import 'package:just_audio/just_audio.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:kratos_iq/ui/common/ui_helpers.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 class AudioPlayerWithTranscript extends StatefulWidget {
   final String audioUrl;
-  final List<Map<String, dynamic>> transcript;
+  final String transcript;
 
   const AudioPlayerWithTranscript({
     super.key,
@@ -69,7 +70,10 @@ class _AudioPlayerWithTranscriptState extends State<AudioPlayerWithTranscript> {
   }
 
   String _formatDuration(Duration d) {
-    return d.toString().split('.').first.padLeft(8, "0");
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = twoDigits(d.inMinutes);
+    final seconds = twoDigits(d.inSeconds.remainder(60));
+    return '$minutes:$seconds';
   }
 
   @override
@@ -78,99 +82,95 @@ class _AudioPlayerWithTranscriptState extends State<AudioPlayerWithTranscript> {
       children: [
         Container(
           width: 487,
-          height: 454,
-          padding: const EdgeInsets.all(16.0),
+          height: 400,
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
           decoration: BoxDecoration(
             color: kcWhite,
             borderRadius: BorderRadius.circular(12),
           ),
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: widget.transcript
-                  .map((entry) => Padding(
-                        padding: const EdgeInsets.only(bottom: 12.0),
-                        child: Text(
-                          entry['text'],
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: kcBlack,
-                          ),
-                        ),
-                      ))
-                  .toList(),
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: Text(widget.transcript).small.medium(
+                    color: kcSlate700,
+                    height: 1.714,
+                  ),
             ),
           ),
         ),
         vertical08,
-        Padding(
+        Container(
+          width: 487,
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-          child: SizedBox(
-            width: 487,
-            child: SliderTheme(
-              data: SliderTheme.of(context).copyWith(
-                activeTrackColor: kcLime500,
-                inactiveTrackColor: kcGray200,
-                thumbColor: kcLime700,
-                overlayColor: kcLime600,
-                trackHeight: 4.0,
-              ),
-              child: Slider(
-                value: _currentPosition.inSeconds.toDouble(),
-                max: _totalDuration.inSeconds.toDouble(),
-                onChanged: (value) =>
-                    _audioPlayer.seek(Duration(seconds: value.toInt())),
-              ),
-            ),
+          decoration: BoxDecoration(
+            color: kcGray100,
+            borderRadius: BorderRadius.circular(12),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: SizedBox(
-            width: 487,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "${_formatDuration(_currentPosition)} / ${_formatDuration(_totalDuration)}",
-                  style: const TextStyle(fontSize: 14, color: Colors.grey),
+          child: material.Column(
+            children: [
+              material.SliderTheme(
+                data: material.SliderTheme.of(context).copyWith(
+                  padding: const EdgeInsets.all(0),
+                  activeTrackColor: kcLime500,
+                  inactiveTrackColor: kcGray200,
+                  thumbColor: kcLime500,
+                  overlayColor: kcLime600,
+                  trackHeight: 2.0,
+                  thumbSize: WidgetStateProperty.all(const Size(8, 8)),
+                  overlayShape: const material.RoundSliderOverlayShape(
+                    overlayRadius: 12.0,
+                  ),
+                  thumbShape: const material.RoundSliderThumbShape(
+                    enabledThumbRadius: 8.0,
+                  ),
                 ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: _skipBackward,
-                      icon: const Icon(Icons.fast_rewind_rounded),
-                    ),
-                    Container(
-                      height: 32,
-                      width: 32,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: kcLime300,
+                child: material.Slider(
+                  value: _currentPosition.inSeconds.toDouble(),
+                  max: _totalDuration.inSeconds.toDouble(),
+                  onChanged: (value) =>
+                      _audioPlayer.seek(Duration(seconds: value.toInt())),
+                ),
+              ),
+              vertical08,
+              vertical04,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "${_formatDuration(_currentPosition)} / ${_formatDuration(_totalDuration)}",
+                  ).small.normal(color: kcGray400, height: 1.714),
+                  Row(
+                    children: [
+                      material.IconButton(
+                        iconSize: 16,
+                        onPressed: _skipBackward,
+                        icon: const Icon(Icons.fast_rewind_outlined),
                       ),
-                      child: IconButton(
-                        padding: EdgeInsets.zero,
+                      horizontal04,
+                      material.IconButton.filled(
+                        iconSize: 40,
+                        onPressed: _togglePlayPause,
                         icon: Icon(
-                          _isPlaying ? Icons.pause : Icons.play_arrow,
+                          _isPlaying ? Icons.pause : Icons.play_arrow_outlined,
                           size: 16,
                           color: kcBlack,
                         ),
-                        onPressed: _togglePlayPause,
+                        color: kcLime300,
                       ),
-                    ),
-                    IconButton(
-                      onPressed: _skipForward,
-                      icon: const Icon(Icons.fast_forward_rounded),
-                    ),
-                  ],
-                ),
-                IconButton(
-                  onPressed: _downloadAudio,
-                  icon: const Icon(Icons.download),
-                ),
-              ],
-            ),
+                      horizontal04,
+                      material.IconButton(
+                        onPressed: _skipForward,
+                        icon: const Icon(Icons.fast_forward_outlined),
+                      ),
+                    ],
+                  ),
+                  material.IconButton(
+                    onPressed: _downloadAudio,
+                    icon: const Icon(Icons.download),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ],

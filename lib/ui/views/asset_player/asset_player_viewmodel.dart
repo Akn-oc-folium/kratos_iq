@@ -1,7 +1,7 @@
-import 'package:video_player/video_player.dart';
-import 'package:stacked/stacked.dart';
-import 'package:kratos_iq/services/api_service.dart';
 import 'package:kratos_iq/app/app.locator.dart';
+import 'package:kratos_iq/services/api_service.dart';
+import 'package:stacked/stacked.dart';
+import 'package:video_player/video_player.dart';
 
 class AssetPlayerViewModel extends BaseViewModel {
   final ApiService _apiService = locator<ApiService>();
@@ -11,20 +11,20 @@ class AssetPlayerViewModel extends BaseViewModel {
   bool _hasError = false;
 
   bool get isPlayerReady => _isReady;
+  @override
   bool get hasError => _hasError;
 
   Future<void> init() async {
     setBusy(true);
     _hasError = false;
     _isReady = false;
-    notifyListeners();
 
     try {
-      final urlString = await _apiService
-          .getLectureVideoUrl('b2f16197-e327-4f9b-b625-349cc979169e');
+      final response = await _apiService
+          .getLectureInfo('f0625da2-35bd-4f17-b7df-be4595ec4532');
 
       videoController = VideoPlayerController.networkUrl(
-        Uri.parse(urlString),
+        Uri.parse(response.data!.videoDownloadUrl!),
       );
       await videoController!.initialize();
       videoController!
@@ -36,7 +36,6 @@ class AssetPlayerViewModel extends BaseViewModel {
       _hasError = true;
     } finally {
       setBusy(false);
-      notifyListeners();
     }
   }
 

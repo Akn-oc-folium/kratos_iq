@@ -1,7 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as material;
 import 'package:flutter/scheduler.dart';
-import 'package:stacked/stacked.dart';
+import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:kratos_iq/ui/common/ui_helpers.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:stacked/stacked.dart';
 
 import 'startup_viewmodel.dart';
 
@@ -14,25 +16,24 @@ class StartupView extends StackedView<StartupViewModel> {
     StartupViewModel viewModel,
     Widget? child,
   ) {
-    return const Scaffold(
+    return material.Scaffold(
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              'STACKED',
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
-            ),
+            const Text(
+              'Krato IQ',
+            ).h1,
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('Loading ...', style: TextStyle(fontSize: 16)),
+                const Text('Loading ...', style: TextStyle(fontSize: 16)),
                 horizontalSpaceSmall,
                 SizedBox(
                   width: 16,
                   height: 16,
-                  child: CircularProgressIndicator(
-                    color: Colors.black,
+                  child: material.CircularProgressIndicator(
+                    color: kcLime500,
                     strokeWidth: 6,
                   ),
                 ),

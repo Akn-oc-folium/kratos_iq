@@ -111,13 +111,14 @@ class StackedRouterWeb extends _i14.RootStackRouter {
         barrierDismissible: false,
       );
     },
-    TeacherLectureViewRoute.name: (routeData) {
-      final args = routeData.argsAs<TeacherLectureViewArgs>();
+    TeacherDashboardViewRoute.name: (routeData) {
+      final args = routeData.argsAs<TeacherDashboardViewArgs>();
       return _i14.CustomPage<dynamic>(
         routeData: routeData,
-        child: _i9.TeacherLectureView(
+        child: _i9.TeacherDashboardView(
           key: args.key,
           lectureNumber: args.lectureNumber,
+          lectureId: args.lectureId,
         ),
         opaque: true,
         barrierDismissible: false,
@@ -157,19 +158,19 @@ class StackedRouterWeb extends _i14.RootStackRouter {
         ),
         _i14.RouteConfig(
           HomeViewRoute.name,
-          path: '/home-view',
+          path: '/home',
         ),
         _i14.RouteConfig(
           QuizViewRoute.name,
-          path: '/quiz-view',
+          path: '/quiz',
         ),
         _i14.RouteConfig(
           FlashcardViewRoute.name,
-          path: '/flashcard-view',
+          path: '/flashcard',
         ),
         _i14.RouteConfig(
           StudentHomeViewRoute.name,
-          path: '/student-home-view',
+          path: '/home/student',
         ),
         _i14.RouteConfig(
           MainLayoutViewRoute.name,
@@ -177,15 +178,15 @@ class StackedRouterWeb extends _i14.RootStackRouter {
         ),
         _i14.RouteConfig(
           StudentDashboardViewRoute.name,
-          path: '/student-dashboard-view',
+          path: '/student/dashboard',
         ),
         _i14.RouteConfig(
           TeacherHomeViewRoute.name,
-          path: '/teacher-home-view',
+          path: '/home/teacher',
         ),
         _i14.RouteConfig(
-          TeacherLectureViewRoute.name,
-          path: '/teacher-lecture-view',
+          TeacherDashboardViewRoute.name,
+          path: '/teacher/dashboard',
         ),
         _i14.RouteConfig(
           VideoFeedViewRoute.name,
@@ -226,7 +227,7 @@ class HomeViewRoute extends _i14.PageRouteInfo<void> {
   const HomeViewRoute()
       : super(
           HomeViewRoute.name,
-          path: '/home-view',
+          path: '/home',
         );
 
   static const String name = 'HomeView';
@@ -240,7 +241,7 @@ class QuizViewRoute extends _i14.PageRouteInfo<QuizViewArgs> {
     required String lectureId,
   }) : super(
           QuizViewRoute.name,
-          path: '/quiz-view',
+          path: '/quiz',
           args: QuizViewArgs(
             key: key,
             lectureId: lectureId,
@@ -274,7 +275,7 @@ class FlashcardViewRoute extends _i14.PageRouteInfo<FlashcardViewArgs> {
     required String lectureId,
   }) : super(
           FlashcardViewRoute.name,
-          path: '/flashcard-view',
+          path: '/flashcard',
           args: FlashcardViewArgs(
             key: key,
             lectureId: lectureId,
@@ -306,7 +307,7 @@ class StudentHomeViewRoute extends _i14.PageRouteInfo<void> {
   const StudentHomeViewRoute()
       : super(
           StudentHomeViewRoute.name,
-          path: '/student-home-view',
+          path: '/home/student',
         );
 
   static const String name = 'StudentHomeView';
@@ -355,7 +356,7 @@ class StudentDashboardViewRoute
     required String lectureId,
   }) : super(
           StudentDashboardViewRoute.name,
-          path: '/student-dashboard-view',
+          path: '/student/dashboard',
           args: StudentDashboardViewArgs(
             key: key,
             lectureId: lectureId,
@@ -387,44 +388,49 @@ class TeacherHomeViewRoute extends _i14.PageRouteInfo<void> {
   const TeacherHomeViewRoute()
       : super(
           TeacherHomeViewRoute.name,
-          path: '/teacher-home-view',
+          path: '/home/teacher',
         );
 
   static const String name = 'TeacherHomeView';
 }
 
 /// generated route for
-/// [_i9.TeacherLectureView]
-class TeacherLectureViewRoute
-    extends _i14.PageRouteInfo<TeacherLectureViewArgs> {
-  TeacherLectureViewRoute({
+/// [_i9.TeacherDashboardView]
+class TeacherDashboardViewRoute
+    extends _i14.PageRouteInfo<TeacherDashboardViewArgs> {
+  TeacherDashboardViewRoute({
     _i15.Key? key,
     required int lectureNumber,
+    required String lectureId,
   }) : super(
-          TeacherLectureViewRoute.name,
-          path: '/teacher-lecture-view',
-          args: TeacherLectureViewArgs(
+          TeacherDashboardViewRoute.name,
+          path: '/teacher/dashboard',
+          args: TeacherDashboardViewArgs(
             key: key,
             lectureNumber: lectureNumber,
+            lectureId: lectureId,
           ),
         );
 
-  static const String name = 'TeacherLectureView';
+  static const String name = 'TeacherDashboardView';
 }
 
-class TeacherLectureViewArgs {
-  const TeacherLectureViewArgs({
+class TeacherDashboardViewArgs {
+  const TeacherDashboardViewArgs({
     this.key,
     required this.lectureNumber,
+    required this.lectureId,
   });
 
   final _i15.Key? key;
 
   final int lectureNumber;
 
+  final String lectureId;
+
   @override
   String toString() {
-    return 'TeacherLectureViewArgs{key: $key, lectureNumber: $lectureNumber}';
+    return 'TeacherDashboardViewArgs{key: $key, lectureNumber: $lectureNumber, lectureId: $lectureId}';
   }
 }
 
@@ -553,15 +559,17 @@ extension RouterStateExtension on _i13.RouterService {
     );
   }
 
-  Future<dynamic> navigateToTeacherLectureView({
+  Future<dynamic> navigateToTeacherDashboardView({
     _i15.Key? key,
     required int lectureNumber,
+    required String lectureId,
     void Function(_i14.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
-      TeacherLectureViewRoute(
+      TeacherDashboardViewRoute(
         key: key,
         lectureNumber: lectureNumber,
+        lectureId: lectureId,
       ),
       onFailure: onFailure,
     );
@@ -679,15 +687,17 @@ extension RouterStateExtension on _i13.RouterService {
     );
   }
 
-  Future<dynamic> replaceWithTeacherLectureView({
+  Future<dynamic> replaceWithTeacherDashboardView({
     _i15.Key? key,
     required int lectureNumber,
+    required String lectureId,
     void Function(_i14.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
-      TeacherLectureViewRoute(
+      TeacherDashboardViewRoute(
         key: key,
         lectureNumber: lectureNumber,
+        lectureId: lectureId,
       ),
       onFailure: onFailure,
     );

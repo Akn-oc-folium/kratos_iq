@@ -20,7 +20,7 @@ class UpcomingLectureCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
           color: kcLime300,
           borderRadius: BorderRadius.circular(12),
@@ -32,16 +32,12 @@ class UpcomingLectureCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title
-                  ).h4(fontSize: 20, color: kcZinc900, height: 1.4),
+                  Text(title).h4(fontSize: 20, color: kcZinc900, height: 1.4),
                   const SizedBox(height: 8),
-                  Text(
-                    subtitle
-                  ).small.semiBold(
-                    color: kcLime900,
-                    height: 1.428,
-                  ),
+                  Text(subtitle).small.semiBold(
+                        color: kcLime900,
+                        height: 1.428,
+                      ),
                 ],
               ),
             ),

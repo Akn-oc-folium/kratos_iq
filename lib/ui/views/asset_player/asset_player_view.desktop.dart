@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart' as material;
+import 'package:kratos_iq/gen/assets.gen.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:kratos_iq/ui/common/ui_helpers.dart';
 import 'package:kratos_iq/ui/views/main_layout/main_layout_view.dart';
@@ -18,15 +20,22 @@ class AssetPlayerViewDesktop extends StatelessWidget {
       builder: (context, vm, child) {
         Widget videoArea;
         if (vm.isBusy) {
-          videoArea = const Center(child: CircularProgressIndicator());
+          videoArea = Center(
+            child: material.CircularProgressIndicator(
+              color: kcGreen700,
+              strokeWidth: 3,
+              semanticsLabel: 'Loading video',
+              semanticsValue: 'Loading video player',
+              value: null,
+            ),
+          );
         } else if (vm.hasError) {
           videoArea = Container(
             color: const Color(0xFFD9D9D9),
-            child: const Center(
-              child: Text(
+            child: Center(
+              child: const Text(
                 'Video not working',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
+              ).base(color: kcZinc900),
             ),
           );
         } else if (vm.isPlayerReady && vm.videoController != null) {
@@ -52,10 +61,10 @@ class AssetPlayerViewDesktop extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'KratosIQ Live Video Feed',
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.w600),
+                      const Text('KratosIQ Live Video Feed').h3(
+                        color: kcBlack,
+                        letterSpacing: -0.6,
+                        height: 1.33,
                       ),
                       vertical16,
                       Container(
@@ -74,6 +83,7 @@ class AssetPlayerViewDesktop extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 24, vertical: 12),
+                          width: 818,
                           decoration: BoxDecoration(
                             color: kcGray100,
                             borderRadius: BorderRadius.circular(12),
@@ -152,19 +162,23 @@ class AssetPlayerViewDesktop extends StatelessWidget {
                     ],
                   ),
                 ),
-                horizontal32,
-                horizontal16,
-                const Expanded(
-                  flex: 1,
+                const SizedBox(width: 112),
+                SizedBox(
+                  width: 382,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Measurable',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w600),
-                      ),
-                      vertical16,
+                      const Text('Measurable').xLarge.h4(
+                            color: kcBlack,
+                            letterSpacing: -0.5,
+                            height: 1.4,
+                          ),
+                      vertical08,
+                      vertical04,
+                      Image.asset(
+                        Assets.images.measurableColumn.path,
+                        height: 690,
+                      )
                     ],
                   ),
                 ),

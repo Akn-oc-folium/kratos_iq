@@ -6,25 +6,27 @@ class QuizDeck extends StatelessWidget {
   final String subTitle;
   final VoidCallback onTap;
 
-  const QuizDeck(
-      {super.key,
-      required this.title,
-      required this.subTitle,
-      required this.onTap});
+  const QuizDeck({
+    super.key,
+    required this.title,
+    required this.subTitle,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 96,
+        height: 126,
         width: 284,
-        padding: const EdgeInsets.only(left: 24.0, top: 24.0, right: 24.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         decoration: BoxDecoration(
           color: kcLime300,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
@@ -32,6 +34,7 @@ class QuizDeck extends StatelessWidget {
               style: TextStyle(
                   fontWeight: FontWeight.w600, fontSize: 20, color: kcZinc900),
             ),
+            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -44,7 +47,7 @@ class QuizDeck extends StatelessWidget {
                   ),
                 ),
                 Icon(
-                  Icons.arrow_right_alt,
+                  Icons.arrow_forward,
                   size: 16,
                   color: kcLime900,
                 )

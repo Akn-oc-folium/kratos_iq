@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kratos_iq/app/app.locator.dart';
-import 'package:kratos_iq/models/flashcard_overview_model.dart';
+import 'package:kratos_iq/models/flashcards_by_lecture_model.dart';
 import 'package:kratos_iq/services/api_service.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:stacked/stacked.dart';
@@ -12,7 +12,8 @@ class FlashcardViewModel extends BaseViewModel {
   final String lectureId;
 
   int currentCardIndex = 0;
-  List<FlashCardDatum> flashcards = [];
+  int lectureNumber = 0;
+  List<FlashCard> flashcards = [];
   Set<int> visitedCards = {};
   bool isLoading = true;
   bool isFlipped = false;
@@ -22,22 +23,21 @@ class FlashcardViewModel extends BaseViewModel {
   }
 
   Future<void> fetchFlashcards(String lectureId) async {
-    isLoading = true;
-    notifyListeners();
+    setBusy(true);
     try {
-      final response = await _apiService.getFlashCards(lectureId);
-      flashcards = response.data;
+      final response = await _apiService.getFlashcardsByLecture(lectureId);
+      flashcards = response.data!.flashCards ?? [];
+      lectureNumber = response.data!.lectureNumber ?? 0;
 
       notifyListeners();
     } catch (e) {
       debugPrint('Error fetching flashcard overview: $e');
     } finally {
-      isLoading = false;
-      notifyListeners();
+      setBusy(false);
     }
   }
 
-  FlashCardDatum? get currentCard {
+  FlashCard? get currentCard {
     if (flashcards.isEmpty) return null;
     return flashcards[currentCardIndex];
   }

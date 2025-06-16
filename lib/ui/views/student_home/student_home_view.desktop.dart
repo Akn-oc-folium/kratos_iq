@@ -4,7 +4,9 @@ import 'package:kratos_iq/ui/common/ui_helpers.dart';
 import 'package:kratos_iq/ui/views/main_layout/main_layout_view.dart';
 import 'package:kratos_iq/ui/widgets/custom_calendar.dart';
 import 'package:kratos_iq/ui/widgets/flash_deck.dart';
+import 'package:kratos_iq/ui/widgets/hover_scale.dart';
 import 'package:kratos_iq/ui/widgets/lecture_card.dart';
+import 'package:kratos_iq/ui/widgets/lecture_card_progress.dart';
 import 'package:kratos_iq/ui/widgets/quiz_deck.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:stacked/stacked.dart';
@@ -20,7 +22,7 @@ class StudentHomeViewDesktop extends StatelessWidget {
       viewModelBuilder: () => StudentHomeViewModel(),
       onViewModelReady: (viewModel) => viewModel.init(),
       builder: (context, viewModel, child) => MainLayoutView(
-        body: viewModel.isLoading
+        body: viewModel.isBusy
             ? const Center(
                 child: CircularProgressIndicator(
                   size: 48.0,
@@ -64,7 +66,7 @@ class StudentHomeViewDesktop extends StatelessWidget {
                                                 child: Stack(
                                                   clipBehavior: Clip.none,
                                                   children: [
-                                                    LectureCard(
+                                                    LectureCardProgress(
                                                       cardColor:
                                                           entry.value['color'],
                                                       lectureNumber: entry
@@ -127,95 +129,96 @@ class StudentHomeViewDesktop extends StatelessWidget {
                           topRight: Radius.circular(20),
                         ),
                       ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 64.0, vertical: 24.0),
+                      padding: const EdgeInsets.fromLTRB(64.0, 24.0, 64.0, 0),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text('Lectures from April, 14').base.bold,
-                                vertical08,
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    children: [
-                                      ...viewModel.lectures
-                                          .map(
-                                            (entry) => Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 16.0),
-                                              child: Row(
-                                                children: [
-                                                  LectureCard(
-                                                    onTap: () => viewModel
-                                                        .navigateToLecturePage(
-                                                            entry['lectureId']),
-                                                    cardColor: entry['color'],
-                                                    lectureNumber:
-                                                        entry['lecture'],
-                                                    date: entry['date'],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                                          .toList(),
-                                    ],
+                            child: SingleChildScrollView(
+                              padding: const EdgeInsets.only(
+                                top: 16.0,
+                                bottom: 40.0,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text('Lectures from April, 14')
+                                      .base
+                                      .bold,
+                                  SizedBox(
+                                    height: 150,
+                                    child: ListView.separated(
+                                      scrollDirection: Axis.horizontal,
+                                      padding: const EdgeInsets.all(16.0),
+                                      itemCount: viewModel.lectures.length,
+                                      separatorBuilder: (_, __) =>
+                                          const SizedBox(width: 16),
+                                      itemBuilder: (context, index) {
+                                        final entry = viewModel.lectures[index];
+                                        return HoverScale(
+                                          child: LectureCard(
+                                            onTap: () =>
+                                                viewModel.navigateToLecturePage(
+                                                    entry['lectureId']),
+                                            title: entry['lecture'],
+                                            subTitle: entry['date'],
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   ),
-                                ),
-                                vertical16,
-                                vertical08,
-                                const Text('Quizzes').base.bold,
-                                vertical08,
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    children: [
-                                      ...viewModel.quizzes
-                                          .map((entry) => Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 16.0),
-                                                child: QuizDeck(
-                                                  onTap: () =>
-                                                      viewModel.navigateToQuiz(
-                                                          entry.lectureId),
-                                                  title: entry.title,
-                                                  subTitle:
-                                                      '${entry.totalQuestions} Qs',
-                                                ),
-                                              ))
-                                    ],
+                                  vertical16,
+                                  const Text('Quizzes').base.bold,
+                                  SizedBox(
+                                    height: 142,
+                                    child: ListView.separated(
+                                      scrollDirection: Axis.horizontal,
+                                      padding: const EdgeInsets.all(16.0),
+                                      itemCount: viewModel.quizzes.length,
+                                      separatorBuilder: (_, __) =>
+                                          const SizedBox(width: 16),
+                                      itemBuilder: (context, index) {
+                                        final entry = viewModel.quizzes[index];
+                                        return HoverScale(
+                                          child: QuizDeck(
+                                            onTap: () =>
+                                                viewModel.navigateToQuiz(
+                                                    entry.lectureId),
+                                            title: entry.title,
+                                            subTitle:
+                                                '${entry.totalQuestions} Qs',
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   ),
-                                ),
-                                vertical16,
-                                vertical08,
-                                const Text('Flashcards Sets').base.bold,
-                                vertical08,
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    spacing: 16.0,
-                                    children: [
-                                      ...viewModel.flashcards
-                                          .map(
-                                            (entry) => FlashDeck(
-                                              onTap: () =>
-                                                  viewModel.navigateToFlashCard(
-                                                      entry['lectureId']),
-                                              assetImage: AssetImage(
-                                                  entry['assetImage']),
-                                              label: entry['label'],
-                                              content: entry['content'],
-                                            ),
-                                          )
-                                          .toList(),
-                                    ],
+                                  vertical16,
+                                  const Text('Flashcards Sets').base.bold,
+                                  SizedBox(
+                                    height: 174,
+                                    child: ListView.separated(
+                                      scrollDirection: Axis.horizontal,
+                                      padding: const EdgeInsets.all(16.0),
+                                      itemCount: viewModel.flashcards.length,
+                                      separatorBuilder: (_, __) =>
+                                          const SizedBox(width: 16),
+                                      itemBuilder: (context, index) {
+                                        final entry =
+                                            viewModel.flashcards[index];
+                                        return FlashDeck(
+                                          onTap: () =>
+                                              viewModel.navigateToFlashCard(
+                                                  entry['lectureId']),
+                                          assetImage:
+                                              AssetImage(entry['assetImage']),
+                                          label: entry['label'],
+                                          content: entry['content'],
+                                        );
+                                      },
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                           const SizedBox(
