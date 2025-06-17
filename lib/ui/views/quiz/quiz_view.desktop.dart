@@ -54,13 +54,10 @@ class QuizViewDesktop extends StatelessWidget {
                               ),
                             ),
                             vertical32,
-                            Text(
-                              'Quiz ${viewModel.lectureId.split('-')[0]}',
-                            ).h1,
+                            Text('Quiz ${viewModel.lectureId.split('-')[0]}')
+                                .h1,
                             vertical08,
-                            const Text(
-                              'Lecture 1',
-                            ).xLarge.h4(
+                            const Text('Lecture 1').xLarge.h4(
                                   color: kcBlack,
                                   letterSpacing: -0.5,
                                   height: 1.4,
@@ -85,38 +82,45 @@ class QuizViewDesktop extends StatelessWidget {
                               color: kcBlack.withValues(alpha: 0.1),
                               height: 24,
                             ),
-                            vertical08,
-                            const Text(
-                              "You're done! Let's see how you did",
-                            ).large.semiBold(
-                                  height: 1.55,
-                                  color: const Color(0xFF2C2C2C),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    vertical08,
+                                    if (viewModel.isFinished)
+                                      const Text(
+                                        "You're done! Let's see how you did",
+                                      ).large.semiBold(
+                                            height: 1.55,
+                                            color: const Color(0xFF2C2C2C),
+                                          ),
+                                    vertical08,
+                                    if (viewModel.isFinished)
+                                      _buildResultScreen(viewModel)
+                                    else
+                                      QuizCard(
+                                        questionNumber:
+                                            "Question ${viewModel.currentQuestionIndex + 1}/${viewModel.questions.length}",
+                                        question: viewModel
+                                                .currentQuestion?.question ??
+                                            '',
+                                        options: viewModel
+                                                .currentQuestion?.options ??
+                                            [],
+                                        correctIndex: viewModel.currentQuestion
+                                                ?.correctIndex ??
+                                            0,
+                                        questionIndex:
+                                            viewModel.currentQuestionIndex,
+                                      ),
+                                    vertical16,
+                                    vertical04,
+                                  ],
                                 ),
-                            vertical08,
-                            if (viewModel.isBusy)
-                              Center(
-                                child: material.CircularProgressIndicator(
-                                  strokeWidth: 3,
-                                  color: kcGreen700,
-                                ),
-                              )
-                            else if (viewModel.isFinished)
-                              _buildResultScreen(viewModel)
-                            else
-                              QuizCard(
-                                questionNumber:
-                                    "Question ${viewModel.currentQuestionIndex + 1}/${viewModel.questions.length}",
-                                question:
-                                    viewModel.currentQuestion?.question ?? '',
-                                options:
-                                    viewModel.currentQuestion?.options ?? [],
-                                correctIndex:
-                                    viewModel.currentQuestion?.correctIndex ??
-                                        0,
-                                questionIndex: viewModel.currentQuestionIndex,
                               ),
+                            ),
                             vertical16,
-                            vertical04,
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -128,15 +132,12 @@ class QuizViewDesktop extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(32),
                                     ),
                                   ),
-                                  child: const Text(
-                                    "Previous",
-                                  ).small.medium(
+                                  child: const Text("Previous").small.medium(
                                         height: 1.428,
                                         color: const Color(0xFF0F172A),
                                       ),
                                 ),
                                 horizontal16,
-                                horizontal08,
                                 material.FilledButton(
                                   onPressed: viewModel.nextQuestion,
                                   style: material.FilledButton.styleFrom(
@@ -145,9 +146,7 @@ class QuizViewDesktop extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(32),
                                     ),
                                   ),
-                                  child: const Text(
-                                    "Next",
-                                  ).small.semiBold(
+                                  child: const Text("Next").small.semiBold(
                                         height: 1.428,
                                         color: kcZinc900,
                                       ),
@@ -182,7 +181,7 @@ class QuizViewDesktop extends StatelessWidget {
                                           color: index ==
                                                   viewModel.currentQuestionIndex
                                               ? kcSky400
-                                              : material.Colors.transparent,
+                                              : Colors.transparent,
                                         ),
                                       ),
                                       child: Row(
@@ -237,21 +236,19 @@ Widget _buildResultScreen(QuizViewModel viewModel) {
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(Assets.images.celebration.path, width: 101, height: 101),
+        Image.asset(
+          Assets.images.celebration.path,
+          width: 101,
+          height: 101,
+        ),
         vertical32,
         vertical04,
-        Text(
-          viewModel.resultText,
-        ).h1(color: kcIndigo600),
+        Text(viewModel.resultText).h1(color: kcIndigo600),
         vertical08,
-        const Text(
-          'Points',
-        ).large.semiBold(color: kcIndigo600),
+        const Text('Points').large.semiBold(color: kcIndigo600),
         vertical32,
         vertical04,
-        const Text(
-          'You did awesome!',
-        ).h4.xLarge(color: kcBlack),
+        const Text('You did awesome!').h4.xLarge(color: kcBlack),
         vertical08,
         vertical04,
         Text(

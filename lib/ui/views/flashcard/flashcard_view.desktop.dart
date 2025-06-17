@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart' as material;
-import 'package:flutter/material.dart';
 import 'package:kratos_iq/ui/common/app_colors.dart';
 import 'package:kratos_iq/ui/common/ui_helpers.dart';
 import 'package:kratos_iq/ui/views/main_layout/main_layout_view.dart';
@@ -18,9 +17,9 @@ class FlashcardViewDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<FlashcardViewModel>.reactive(
       viewModelBuilder: () => FlashcardViewModel(lectureId),
-      builder: (context, viewModel, child) => MainLayoutView(
-        body: viewModel.isBusy
-            ? material.Center(
+      builder: (context, vm, child) => MainLayoutView(
+        body: vm.isBusy
+            ? Center(
                 child: material.CircularProgressIndicator(
                   strokeWidth: 3,
                   color: kcGreen700,
@@ -34,94 +33,90 @@ class FlashcardViewDesktop extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              GestureDetector(
-                                onTap: viewModel.goBack,
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.arrow_back,
-                                      size: 16,
+                          GestureDetector(
+                            onTap: vm.goBack,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.arrow_back,
+                                  size: 16,
+                                  color: kcLime600,
+                                ),
+                                horizontal08,
+                                const Text('Back').small.medium(
+                                      height: 1.428,
                                       color: kcLime600,
                                     ),
-                                    horizontal08,
-                                    const Text('Back').small.medium(
-                                          height: 1.428,
-                                          color: kcLime600,
-                                        ),
-                                  ],
-                                ),
-                              ),
-                              vertical32,
-                              Text(
-                                'Flashcard ${viewModel.lectureNumber}.${viewModel.currentCardIndex + 1}',
-                              ).h1,
-                              vertical08,
-                              vertical04,
-                              Text(
-                                "Lecture ${viewModel.lectureNumber}",
-                              ).xLarge.h4(
-                                    color: kcBlack,
-                                    letterSpacing: -0.5,
-                                    height: 1.4,
-                                  ),
-                              material.Divider(
-                                height: 32,
-                                color: kcBlack.withValues(alpha: 0.1),
-                              ),
-                              Text(
-                                "${viewModel.currentCardIndex + 1}/${viewModel.flashcards.length}",
-                              ).large.semiBold,
-                              vertical08,
-                              if (viewModel.isBusy)
-                                const Center(
-                                    child: material.CircularProgressIndicator())
-                              else if (viewModel.currentCard != null)
-                                FlashCard(
-                                  title: viewModel.currentCard!.title ??
-                                      'title_not_found',
-                                  content: viewModel.currentCard!.content ??
-                                      'content_not_found',
-                                  onTap: () => viewModel.toggleFlashcard(),
-                                  isFlipped: viewModel.isFlipped,
-                                ),
-                              vertical16,
-                              vertical04,
-                            ],
+                              ],
+                            ),
                           ),
+                          vertical32,
+                          Text(
+                            'Flashcard ${vm.lectureNumber}.${vm.currentCardIndex + 1}',
+                          ).h1,
+                          vertical08,
+                          vertical04,
+                          Text(
+                            "Lecture ${vm.lectureNumber}",
+                          ).xLarge.h4(
+                                color: kcBlack,
+                                letterSpacing: -0.5,
+                                height: 1.4,
+                              ),
+                          Divider(
+                            height: 32,
+                            color: kcBlack.withValues(alpha: 0.1),
+                          ),
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "${vm.currentCardIndex + 1}/${vm.flashcards.length}",
+                                  ).large.semiBold,
+                                  vertical08,
+                                  if (vm.currentCard != null)
+                                    FlashCard(
+                                      title: vm.currentCard!.title ??
+                                          'title_not_found',
+                                      content: vm.currentCard!.content ??
+                                          'content_not_found',
+                                      onTap: vm.toggleFlashcard,
+                                      isFlipped: vm.isFlipped,
+                                    ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          vertical16,
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              FilledButton(
-                                onPressed: viewModel.previousCard,
-                                style: FilledButton.styleFrom(
+                              material.FilledButton(
+                                onPressed: vm.previousCard,
+                                style: material.FilledButton.styleFrom(
                                   backgroundColor: kcGray100,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(32),
                                   ),
                                 ),
-                                child: const Text(
-                                  "Previous",
-                                ).small.medium(
+                                child: const Text("Previous").small.medium(
                                       height: 1.428,
                                       color: const Color(0xFF0F172A),
                                     ),
                               ),
                               horizontal16,
-                              FilledButton(
-                                onPressed: viewModel.nextCard,
-                                style: FilledButton.styleFrom(
+                              material.FilledButton(
+                                onPressed: vm.nextCard,
+                                style: material.FilledButton.styleFrom(
                                   backgroundColor: kcLime300,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(32),
                                   ),
                                 ),
-                                child: const Text(
-                                  "Next",
-                                ).small.semiBold(
+                                child: const Text("Next").small.semiBold(
                                       height: 1.428,
                                       color: kcZinc900,
                                     ),
@@ -135,13 +130,13 @@ class FlashcardViewDesktop extends StatelessWidget {
                     SizedBox(
                       width: 284,
                       height: MediaQuery.of(context).size.height - 128,
-                      child: material.Scrollbar(
+                      child: Scrollbar(
                         radius: const Radius.circular(8),
                         child: ListView.builder(
-                          itemCount: viewModel.flashcards.length,
+                          itemCount: vm.flashcards.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
-                              onTap: () => viewModel.goToCard(index),
+                              onTap: () => vm.goToCard(index),
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 16,
@@ -149,16 +144,16 @@ class FlashcardViewDesktop extends StatelessWidget {
                                 ),
                                 margin: const EdgeInsets.only(bottom: 8),
                                 decoration: BoxDecoration(
-                                  color: viewModel.getCardStatusColor(index),
+                                  color: vm.getCardStatusColor(index),
                                   borderRadius: BorderRadius.circular(12),
                                   border: Border.all(
-                                    color: index == viewModel.currentCardIndex
+                                    color: index == vm.currentCardIndex
                                         ? kcSky400
-                                        : material.Colors.transparent,
+                                        : Colors.transparent,
                                   ),
                                 ),
                                 child: Text(
-                                  "${index + 1}. ${viewModel.flashcards[index].title}",
+                                  "${index + 1}. ${vm.flashcards[index].title}",
                                 ).small.semiBold(
                                       height: 1.428,
                                       color: kcSlate700,
