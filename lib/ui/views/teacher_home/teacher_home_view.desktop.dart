@@ -157,39 +157,43 @@ class TeacherHomeViewDesktop extends StatelessWidget {
                           ),
                           SizedBox(
                             width: 387,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  'Upcoming Lectures for April, 17',
-                                  textAlign: TextAlign.left,
-                                ).base.bold,
-                                const SizedBox(height: 8),
-                                UpcomingLectureCard(
-                                  title: 'Sequences & Series (AP/GP)',
-                                  subtitle: 'Classs 10',
-                                  onTap: () {},
+                            child: SingleChildScrollView(
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 24.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Upcoming Lectures for April, 17',
+                                      textAlign: TextAlign.left,
+                                    ).base.bold,
+                                    const SizedBox(height: 8),
+                                    UpcomingLectureCard(
+                                      title: 'Sequences & Series (AP/GP)',
+                                      subtitle: 'Classs 10',
+                                      onTap: () {},
+                                    ),
+                                    const SizedBox(height: 6),
+                                    UpcomingLectureCard(
+                                      title: 'Matrices & Determinants',
+                                      subtitle: 'Classs 8',
+                                      onTap: () {},
+                                    ),
+                                    const SizedBox(height: 6),
+                                    UpcomingLectureCard(
+                                      title: 'Permutations & Combinations',
+                                      subtitle: 'Classs 11',
+                                      onTap: () {},
+                                    ),
+                                    const SizedBox(height: 14),
+                                    Image.asset(
+                                      Assets.images.createFlashcardBanner.path,
+                                      height: 115,
+                                      width: double.infinity,
+                                    )
+                                  ],
                                 ),
-                                const SizedBox(height: 6),
-                                UpcomingLectureCard(
-                                  title: 'Matrices & Determinants',
-                                  subtitle: 'Classs 8',
-                                  onTap: () {},
-                                ),
-                                const SizedBox(height: 6),
-                                UpcomingLectureCard(
-                                  title: 'Permutations & Combinations',
-                                  subtitle: 'Classs 11',
-                                  onTap: () {},
-                                ),
-                                const SizedBox(height: 14),
-                                const Spacer(),
-                                Image.asset(
-                                  Assets.images.createFlashcardBanner.path,
-                                  height: 115,
-                                  width: double.infinity,
-                                )
-                              ],
+                              ),
                             ),
                           )
                         ],

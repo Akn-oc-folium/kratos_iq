@@ -64,7 +64,7 @@ class StudentDashboardViewDesktop extends StatelessWidget {
                                   height: 36,
                                   width: 320,
                                   child: Text(
-                                    viewModel.lectureDetails?.data?.title ?? '',
+                                    'Lecture ${viewModel.lectureDetails?.data?.lectureNumber ?? ''}',
                                   ).h3(
                                     letterSpacing: -0.75,
                                     height: 1.2,
